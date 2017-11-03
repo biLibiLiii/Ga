@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -35,13 +36,27 @@ public class MainActivity extends BaseActivity implements CallBack<Event> {
         toolbar = ((Toolbar) findViewById(R.id.main_toolbar));
         toolbar.setLogo(R.mipmap.ic_launcher);
         toolbar.setTitle("Hello");
-        toolbar.setSubtitle("bupt");
+        toolbar.setSubtitle("Bupt");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_launcher);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(toolbar, "Click setNavigationIcon", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_share:
+                        Snackbar.make(toolbar,"Click Share",Snackbar.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_more:
+                        Snackbar.make(toolbar,"Click More",Snackbar.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
             }
         });
     }
@@ -54,6 +69,12 @@ public class MainActivity extends BaseActivity implements CallBack<Event> {
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override

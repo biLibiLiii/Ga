@@ -9,6 +9,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:typeface">serif</item>
     </style>
 
 </resources>
