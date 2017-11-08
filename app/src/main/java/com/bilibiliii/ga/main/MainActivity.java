@@ -1,23 +1,16 @@
 package com.bilibiliii.ga.main;
 
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
-import com.bilibiliii.ga.bean.Event;
-import com.bilibiliii.ga.bean.Result;
-import com.bilibiliii.ga.utils.http.CallBack;
-import com.bilibiliii.ga.utils.http.CallBackException;
-import com.bilibiliii.ga.utils.http.RetrofitUtils;
+import com.bilibiliii.ga.utils.bmob.I.IBmobManager;
 
-public class MainActivity extends BaseActivity implements CallBack<Event> {
+public class MainActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
     private Toolbar toolbar;
 
@@ -75,20 +68,5 @@ public class MainActivity extends BaseActivity implements CallBack<Event> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    @Override
-    public void onNext(Result<Event> value) {
-        Log.d(TAG, value.getResult().get(0).getDes());
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onComplete() {
-
     }
 }
