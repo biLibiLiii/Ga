@@ -1,14 +1,18 @@
 package com.bilibiliii.ga.main;
 
-import android.support.design.widget.Snackbar;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
-import com.bilibiliii.ga.utils.bmob.I.IBmobManager;
+import com.bilibiliii.ga.bean.User;
+import com.bilibiliii.ga.utils.bmob.CallBack;
+import com.bilibiliii.ga.utils.bmob.UserProxy;
 
 public class MainActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
@@ -41,12 +45,12 @@ public class MainActivity extends BaseActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.action_share:
-                        Snackbar.make(toolbar,"Click Share",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(toolbar, "Click Share", Snackbar.LENGTH_SHORT).show();
                         break;
                     case R.id.action_more:
-                        Snackbar.make(toolbar,"Click More",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(toolbar, "Click More", Snackbar.LENGTH_SHORT).show();
                         break;
                 }
                 return true;
@@ -61,7 +65,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        UserProxy.getInstance().login("testUse11r", "123456", new CallBack() {
+            @Override
+            public void onSuccess(User user) {
+                Log.d(TAG,user.getUsername());
+            }
 
+            @Override
+            public void onFail() {
+                Log.d(TAG,"fail");
+            }
+        });
     }
 
     @Override
