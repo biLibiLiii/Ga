@@ -14,6 +14,8 @@ import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
 
+import java.util.List;
+
 public class MainActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
     private Toolbar toolbar;
@@ -65,17 +67,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        UserProxy.getInstance().login("testUse11r", "123456", new CallBack() {
-            @Override
-            public void onSuccess(User user) {
-                Log.d(TAG,user.getUsername());
-            }
 
-            @Override
-            public void onFail() {
-                Log.d(TAG,"fail");
-            }
-        });
     }
 
     @Override
