@@ -30,6 +30,11 @@ public interface IUserProxy {
     int ERROR_CODE_ERROR_ABOUT_THIRD_PART = 9017;
     int ERROR_CODE_PARAMS_NULL = 9018;
     int ERROR_CODE_FORMAT_ERROR = 9019;
+    int STATE_DISCONNECT = 0;
+    int STATE_CONNECTING = 1;
+    int STATE_CONNECTED = 2;
+    int STATE_NETWORK_ERROR = -1;
+    int STATE_KICK_OFF_BY_OTHERS = -2;
 
     void login(String username, String password, CallBack<User> callBack);
 
@@ -45,5 +50,5 @@ public interface IUserProxy {
 
     void logOut();
 
-    BmobUser getCurrentUser();
+    User getCurrentUser();
 }

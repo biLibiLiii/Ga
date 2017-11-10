@@ -3,18 +3,13 @@ package com.bilibiliii.ga.main;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
-import com.bilibiliii.ga.bean.User;
-import com.bilibiliii.ga.utils.bmob.CallBack;
-import com.bilibiliii.ga.utils.bmob.UserProxy;
-
-import java.util.List;
+import com.bilibiliii.ga.main.presenter.MainPresenter;
 
 public class MainActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
@@ -67,17 +62,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        UserProxy.getInstance().register("123", "456", new CallBack<User>() {
-            @Override
-            public void onSuccess(User result) {
-                Log.d(TAG,"123 success");
-            }
-
-            @Override
-            public void onFail(String errorInfo) {
-
-            }
-        });
+        new MainPresenter().login();
     }
 
     @Override
