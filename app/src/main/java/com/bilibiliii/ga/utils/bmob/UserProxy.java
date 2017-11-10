@@ -93,6 +93,10 @@ public class UserProxy implements IUserProxy {
             handler.sendEmptyMessage(STATE_CONNECTED);
             return;
         }
+        if (BmobIM.getInstance().getCurrentStatus().getCode() == ConnectionStatus.CONNECTING.getCode()) {
+            setIMStateCallback();
+            return;
+        }
         BmobIM.connect(getCurrentUser().getObjectId(), new ConnectListener() {
             @Override
             public void done(String uid, BmobException e) {
@@ -106,13 +110,18 @@ public class UserProxy implements IUserProxy {
         });
     }
 
+    private ConnectStatusChangeListener connectStatusChangeListener;
+
     private void setIMStateCallback() {
-        BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeListener() {
-            @Override
-            public void onChange(ConnectionStatus status) {
-                handler.sendEmptyMessage(status.getCode());
-            }
-        });
+        if (null == connectStatusChangeListener) {
+            connectStatusChangeListener = new ConnectStatusChangeListener() {
+                @Override
+                public void onChange(ConnectionStatus status) {
+                    handler.sendEmptyMessage(status.getCode());
+                }
+            };
+        }
+        BmobIM.getInstance().setOnConnectStatusChangeListener(connectStatusChangeListener);
     }
 
     @Override
@@ -176,12 +185,12 @@ public class UserProxy implements IUserProxy {
     }
 
     @Override
-    public void reLoginIM(){
+    public void reLoginIM() {
         initIMProfile();
     }
 
     @Override
-    public void logOutIM(){
+    public void logOutIM() {
         BmobIM.getInstance().disConnect();
     }
 
