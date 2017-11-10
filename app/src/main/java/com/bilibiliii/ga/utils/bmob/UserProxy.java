@@ -1,12 +1,18 @@
 package com.bilibiliii.ga.utils.bmob;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.bmob.I.IUserProxy;
 
 import java.util.List;
 
+import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.core.ConnectionStatus;
+import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -17,13 +23,14 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 public class UserProxy implements IUserProxy {
     private String TAG = getClass().getSimpleName();
-    private static UserProxy instance;
+    private Handler handler;
 
-    public static UserProxy getInstance() {
-        if (instance == null) {
-            instance = new UserProxy();
-        }
-        return instance;
+    public UserProxy(Handler.Callback callback) {
+        this.handler = new Handler(Looper.getMainLooper(), callback);
+    }
+
+    public static UserProxy getInstance(Handler.Callback callback) {
+        return new UserProxy(callback);
     }
 
     @Override
@@ -41,6 +48,7 @@ public class UserProxy implements IUserProxy {
             public void done(User s, BmobException e) {
                 if (null == e) {
                     callBack.onSuccess(s);
+                    initIMProfile();
                 } else {
                     callBack.onFail(getErrorInfo(e.getErrorCode()));
                 }
@@ -57,8 +65,9 @@ public class UserProxy implements IUserProxy {
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User s, BmobException e) {
-                if (e == null) {
+                if (null == e) {
                     callBack.onSuccess(s);
+                    initIMProfile();
                 } else {
                     callBack.onFail(getErrorInfo(e.getErrorCode()));
                 }
@@ -67,7 +76,7 @@ public class UserProxy implements IUserProxy {
     }
 
     @Override
-    public void register(String username, String password, String email, final CallBack<User> callBack) {
+    public void register(String username, String password, final CallBack<User> callBack) {
         if (null == callBack) {
             throw new NullPointerException("User register Callback can not be Null.");
         }
@@ -75,9 +84,44 @@ public class UserProxy implements IUserProxy {
         User user = new User.UserBuilder()
                 .setUsername(username)
                 .setPassword(password)
-                .setEmail(email)
                 .build();
         register(user, callBack);
+    }
+
+    private void initIMProfile() {
+        if (BmobIM.getInstance().getCurrentStatus().getCode() == ConnectionStatus.CONNECTED.getCode()) {
+            handler.sendEmptyMessage(STATE_CONNECTED);
+            return;
+        }
+        if (BmobIM.getInstance().getCurrentStatus().getCode() == ConnectionStatus.CONNECTING.getCode()) {
+            setIMStateCallback();
+            return;
+        }
+        BmobIM.connect(getCurrentUser().getObjectId(), new ConnectListener() {
+            @Override
+            public void done(String uid, BmobException e) {
+                if (e == null) {
+                    setIMStateCallback();
+                    handler.sendEmptyMessage(STATE_CONNECTED);
+                } else {
+                    handler.sendEmptyMessage(STATE_DISCONNECT);
+                }
+            }
+        });
+    }
+
+    private ConnectStatusChangeListener connectStatusChangeListener;
+
+    private void setIMStateCallback() {
+        if (null == connectStatusChangeListener) {
+            connectStatusChangeListener = new ConnectStatusChangeListener() {
+                @Override
+                public void onChange(ConnectionStatus status) {
+                    handler.sendEmptyMessage(status.getCode());
+                }
+            };
+        }
+        BmobIM.getInstance().setOnConnectStatusChangeListener(connectStatusChangeListener);
     }
 
     @Override
@@ -89,7 +133,7 @@ public class UserProxy implements IUserProxy {
         User user = new User.UserBuilder()
                 .setEmail(email)
                 .build();
-        BmobUser currentUser = getCurrentUser();
+        User currentUser = getCurrentUser();
         user.update(currentUser.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
@@ -141,14 +185,26 @@ public class UserProxy implements IUserProxy {
     }
 
     @Override
-    public void logOut() {
-        User.logOut();
+    public void reLoginIM() {
+        initIMProfile();
     }
 
     @Override
-    public BmobUser getCurrentUser() {
-        return User.getCurrentUser();
+    public void logOutIM() {
+        BmobIM.getInstance().disConnect();
     }
+
+    @Override
+    public void logOut() {
+        User.logOut();
+        BmobIM.getInstance().disConnect();
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return User.getCurrentUser(User.class);
+    }
+
 
     private String getErrorInfo(int errorCode) {
         String msg = "";
