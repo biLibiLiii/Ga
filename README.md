@@ -8,3 +8,7 @@ bupt, edu, sw, workspace
 * [LiErGou](https://github.com/LiErGou)
 
 * [huobaohai](https://github.com/huobaohai)
+
+* [SuperSunMR](https://github.com/SuperSunMR)
+
+* [XXRON](https://github.com/XXRON)
