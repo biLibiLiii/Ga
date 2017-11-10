@@ -22,12 +22,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".main.MainActivity">
+        </activity>
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".chat.ChatActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".setting.SettingActivity" />
         <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver" >
@@ -49,6 +54,8 @@
         <meta-data
             android:name="Bmob_APP_KEY"
             android:value="0a58691792addebbeefae9f474e3f0d7" />
+=======
+>>>>>>> licl_chat
     </application>
 
 </manifest>
