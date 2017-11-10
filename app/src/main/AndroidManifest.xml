@@ -32,9 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".login.LoginActivity" />
-        <activity android:name=".setting.SettingActivity" />
+
         <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver" >
             <intent-filter>
                 <action android:name="cn.bmob.action.RECONNECT" />
