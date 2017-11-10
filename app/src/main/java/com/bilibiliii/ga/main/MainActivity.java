@@ -67,7 +67,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        UserProxy.getInstance().register("123", "456", new CallBack<User>() {
+            @Override
+            public void onSuccess(User result) {
+                Log.d(TAG,"123 success");
+            }
 
+            @Override
+            public void onFail(String errorInfo) {
+
+            }
+        });
     }
 
     @Override

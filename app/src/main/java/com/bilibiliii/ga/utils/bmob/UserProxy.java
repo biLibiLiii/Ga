@@ -67,7 +67,7 @@ public class UserProxy implements IUserProxy {
     }
 
     @Override
-    public void register(String username, String password, String email, final CallBack<User> callBack) {
+    public void register(String username, String password, final CallBack<User> callBack) {
         if (null == callBack) {
             throw new NullPointerException("User register Callback can not be Null.");
         }
@@ -75,7 +75,6 @@ public class UserProxy implements IUserProxy {
         User user = new User.UserBuilder()
                 .setUsername(username)
                 .setPassword(password)
-                .setEmail(email)
                 .build();
         register(user, callBack);
     }

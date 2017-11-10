@@ -35,7 +35,7 @@ public interface IUserProxy {
 
     void register(User user, CallBack<User> callBack);
 
-    void register(String username, String password, String email, CallBack<User> callBack);
+    void register(String username, String password, CallBack<User> callBack);
 
     void updateUser(String email, final CallBack<User> callBack);
 
