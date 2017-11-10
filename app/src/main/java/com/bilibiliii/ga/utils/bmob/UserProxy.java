@@ -267,7 +267,7 @@ public class UserProxy implements IUserProxy {
                 msg = "格式不正确：手机号码、邮箱地址、验证码";
                 break;
             default:
-                msg = "未知错误";
+                msg = "未知错误:"+errorCode;
                 break;
         }
         return msg;
