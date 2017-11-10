@@ -51,4 +51,8 @@ public interface IUserProxy {
     void logOut();
 
     User getCurrentUser();
+
+    void reLoginIM();
+
+    void logOutIM();
 }

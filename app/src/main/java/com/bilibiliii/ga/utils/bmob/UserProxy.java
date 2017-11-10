@@ -2,7 +2,6 @@ package com.bilibiliii.ga.utils.bmob;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.bmob.I.IUserProxy;
@@ -107,16 +106,13 @@ public class UserProxy implements IUserProxy {
         });
     }
 
-    private ConnectStatusChangeListener connectStatusChangeListener;
-
     private void setIMStateCallback() {
-        connectStatusChangeListener = new ConnectStatusChangeListener() {
+        BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeListener() {
             @Override
             public void onChange(ConnectionStatus status) {
                 handler.sendEmptyMessage(status.getCode());
             }
-        };
-        BmobIM.getInstance().setOnConnectStatusChangeListener(connectStatusChangeListener);
+        });
     }
 
     @Override
@@ -177,6 +173,16 @@ public class UserProxy implements IUserProxy {
                 }
             }
         });
+    }
+
+    @Override
+    public void reLoginIM(){
+        initIMProfile();
+    }
+
+    @Override
+    public void logOutIM(){
+        BmobIM.getInstance().disConnect();
     }
 
     @Override
