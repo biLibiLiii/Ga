@@ -52,8 +52,7 @@
         <meta-data
             android:name="Bmob_APP_KEY"
             android:value="0a58691792addebbeefae9f474e3f0d7" />
-=======
->>>>>>> licl_chat
+
     </application>
 
 </manifest>
