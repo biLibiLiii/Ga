@@ -27,12 +27,12 @@ public class UserProxy implements IUserProxy {
     private String TAG = getClass().getSimpleName();
     private Handler handler;
 
-    public UserProxy(Handler.Callback callback) {
-        this.handler = new Handler(Looper.getMainLooper(), callback);
+    public static UserProxy getInstance() {
+        return new UserProxy();
     }
 
-    public static UserProxy getInstance(Handler.Callback callback) {
-        return new UserProxy(callback);
+    public void setHandlerCallback(Handler.Callback callback){
+        this.handler = new Handler(Looper.getMainLooper(), callback);
     }
 
     @Override

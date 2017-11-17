@@ -4,8 +4,10 @@ import android.os.Message;
 import android.util.Log;
 
 import com.bilibiliii.ga.base.BasePresenter;
+import com.bilibiliii.ga.bean.Friend;
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.bmob.CallBack;
+import com.bilibiliii.ga.utils.bmob.FriendProxy;
 import com.bilibiliii.ga.utils.bmob.I.IUserProxy;
 import com.bilibiliii.ga.utils.bmob.MessageProxy;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
@@ -23,8 +25,8 @@ public class MainPresenter extends BasePresenter {
     private UserProxy userProxy;
 
     public MainPresenter() {
-        this.userProxy = UserProxy.getInstance(this);
-        ;
+        this.userProxy = UserProxy.getInstance();
+        this.userProxy.setHandlerCallback(this);
     }
 
     public void login() {
@@ -62,6 +64,17 @@ public class MainPresenter extends BasePresenter {
             @Override
             public void onFail(String errorInfo) {
                 Log.d(TAG, "onFail query message");
+            }
+        });
+        new FriendProxy(null).queryFriends(new CallBack<List<Friend>>() {
+            @Override
+            public void onSuccess(List<Friend> result) {
+                Log.d(TAG, "onSuccess queryFriends");
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+                Log.d(TAG, "onFail queryFriends:" + errorInfo);
             }
         });
 //        messageProxy.sendMessage("hello, aj!", new CallBack<BmobIMMessage>() {
