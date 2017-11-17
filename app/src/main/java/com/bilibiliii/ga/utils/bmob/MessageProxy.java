@@ -125,7 +125,7 @@ public class MessageProxy implements IMessageProxy {
         String username = info.getName();
         String title = conversation.getConversationTitle();
         if (!username.equals(title)) {
-            UserProxy.getInstance(null).queryUserById(info.getUserId(), new CallBack<User>() {
+            UserProxy.getInstance().queryUserById(info.getUserId(), new CallBack<User>() {
                 @Override
                 public void onSuccess(User result) {
                     String name = result.getUsername();
