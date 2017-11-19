@@ -23,11 +23,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".main.MainActivity"/>
         <activity android:name=".login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".setting.SettingActivity"/>
         <activity android:name=".chat.ChatActivity">
@@ -56,6 +52,13 @@
             android:value="0a58691792addebbeefae9f474e3f0d7"/>
 
         <activity android:name=".login.RegisterActivity">
+        </activity>
+        <activity android:name=".chat.ConversationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

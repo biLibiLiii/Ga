@@ -9,11 +9,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
 import com.bilibiliii.ga.bean.User;
+import com.bilibiliii.ga.chat.ConversationActivity;
 import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
@@ -22,6 +25,9 @@ public class RegisterActivity extends BaseActivity {
     private EditText mUserNameEditText;
     private Button mRegisteButton;
     private EditText mPassWordEditText;
+    private TextView mTitle;
+    private ImageButton mBackImageButton;
+    private static final String TITLE="注册";
     UserProxy mUserProxy;
     @Override
     protected void setContentView() {
@@ -31,9 +37,21 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mTitle=(TextView) findViewById(R.id.titlebar_title);
+        mBackImageButton=(ImageButton)findViewById(R.id.titlebar_left_imagebtn);
+        mBackImageButton.setVisibility(View.VISIBLE);
         mRegisteButton=(Button)findViewById(R.id.regist_btn);
         mUserNameEditText=(EditText) findViewById(R.id.regist_username);
         mPassWordEditText=(EditText)findViewById(R.id.regist_password);
+        mTitle.setText(TITLE);
+        mBackImageButton.setBackgroundResource(R.drawable.back);
+//        mBackImageButton.setImageResource(R.drawable.back);
+        mBackImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         mRegisteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,8 +74,9 @@ public class RegisterActivity extends BaseActivity {
                     public void onSuccess(User result) {
                         Log.d("licl","register success");
                         Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
+                        Intent intent=new Intent(RegisterActivity.this,ConversationActivity.class);
                         startActivity(intent);
+                        finish();
                     }
 
                     @Override

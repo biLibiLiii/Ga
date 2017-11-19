@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
 import com.bilibiliii.ga.bean.User;
+import com.bilibiliii.ga.chat.ConversationActivity;
 import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
@@ -74,9 +75,10 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(User result) {
                         Log.d("licl","login success");
-                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        Intent intent=new Intent(LoginActivity.this,ConversationActivity.class);
                         startActivity(intent);
                         Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                        finish();
                     }
 
                     @Override
