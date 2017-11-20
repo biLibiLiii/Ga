@@ -228,5 +228,3 @@ public class UserProxy implements IUserProxy {
     public User getCurrentUser() {
         return User.getCurrentUser(User.class);
     }
-
-}

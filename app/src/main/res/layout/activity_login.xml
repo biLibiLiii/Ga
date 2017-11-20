@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+    <com.bilibiliii.ga.view.RoundImageView
+        android:layout_marginTop="90dp"
+        android:id="@+id/person_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+    <EditText
+        android:layout_marginTop="80dp"
+        android:drawableLeft="@drawable/user_icon"
+        android:id="@+id/username_edittext"
+        android:layout_width="300dp"
+        android:hint="用户名"
+        android:typeface="normal"
+        android:textColorHint="@android:color/darker_gray"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:background="@drawable/edittext_frame"
+        android:padding="3dp"/>
+    <EditText
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/password_icon"
+        android:id="@+id/password_edittext"
+        android:layout_width="300dp"
+        android:hint="密码"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="textPassword"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:background="@drawable/edittext_frame"
+        android:padding="3dp"/>
+    <Button
+        android:layout_marginTop="30dp"
+        android:id="@+id/login_btn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="登  录"
+        android:textSize="20sp"
+        android:background="@android:color/holo_blue_dark"/>
+    <TextView
+        android:id="@+id/regist_textview"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册新账号"
+        android:textSize="12sp"
+        android:textColor="@android:color/holo_blue_light"/>
+</LinearLayout>
