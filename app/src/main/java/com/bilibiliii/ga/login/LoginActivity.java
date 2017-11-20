@@ -37,13 +37,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        Handler.Callback callback=new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message message) {
-                return false;
-            }
-        };
-        mUserProxy=UserProxy.getInstance(callback);
+
+        mUserProxy=UserProxy.getInstance();
         mRoundImageView=(RoundImageView) findViewById(R.id.person_icon);
         mRoundImageView.setImageResource(R.drawable.icon_test);
         mUserNameEditText=(EditText)findViewById(R.id.username_edittext);
