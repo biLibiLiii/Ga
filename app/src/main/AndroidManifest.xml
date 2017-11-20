@@ -21,9 +21,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity"/>
+        <activity android:name=".main.MainActivityUnuse"/>
         <activity android:name=".login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".setting.SettingActivity"/>
         <activity android:name=".chat.ChatActivity">
@@ -53,12 +57,8 @@
 
         <activity android:name=".login.RegisterActivity">
         </activity>
-        <activity android:name=".conversation.ConversationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity android:name=".main.MainActivity">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
     </application>
 

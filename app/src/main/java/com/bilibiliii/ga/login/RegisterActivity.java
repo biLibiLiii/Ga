@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
 import com.bilibiliii.ga.bean.User;
-import com.bilibiliii.ga.conversation.ConversationActivity;
+import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
 
@@ -71,7 +71,7 @@ public class RegisterActivity extends BaseActivity {
                     public void onSuccess(User result) {
                         Log.d("licl","register success");
                         Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(RegisterActivity.this,ConversationActivity.class);
+                        Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
