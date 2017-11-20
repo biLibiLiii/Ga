@@ -74,6 +74,9 @@ public class EditMurmurActivity extends AppCompatActivity implements EditMurmurC
     }
 
     private void setToolbar() {
+        toolbar.setTitle("Murmur");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
