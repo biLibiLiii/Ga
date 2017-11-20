@@ -6,6 +6,9 @@ import cn.bmob.v3.BmobUser;
  * @author No.47 create at 2017/11/8.
  */
 public class User extends BmobUser {
+    public User(){
+
+    }
 
     public User(UserBuilder userBuilder) {
         this.setUsername(userBuilder.username);
