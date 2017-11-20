@@ -1,4 +1,4 @@
-package com.bilibiliii.ga.view;
+package com.bilibiliii.ga.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;

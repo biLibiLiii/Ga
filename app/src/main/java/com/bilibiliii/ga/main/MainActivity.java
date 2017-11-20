@@ -2,6 +2,8 @@ package com.bilibiliii.ga.main;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +12,7 @@ import android.view.View;
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
 import com.bilibiliii.ga.main.presenter.MainPresenter;
+import com.bilibiliii.ga.murmur.MurmurFragment;
 
 public class MainActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
@@ -55,9 +58,14 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
     @Override
     protected void initPresenter() {
-
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.home_page_content,new MurmurFragment(), "murmur");
+        fragmentTransaction.commit();
     }
 
     @Override

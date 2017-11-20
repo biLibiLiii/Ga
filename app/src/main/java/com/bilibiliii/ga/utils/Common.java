@@ -29,4 +29,12 @@ public class Common {
     //好友请求：我发出的好友请求-暂未存储到本地数据库中
     public static final int STATUS_VERIFY_ME_SEND = 4;
 
+    public static int RESULT_ALBUM = 1000;
+    public static String RESULT_ALBUM_INTENT_TYPE = "image/*";
+    public static String RESULT_ALBUM_INTENT_PARM_0 = "crop";
+    public static String RESULT_ALBUM_INTENT_PARM_1 = "return-data";
+
+    public static int IMAGE_SIZE_ON_EDIT_WIDTH = 100;
+    public static int IMAGE_SIZE_ON_EDIT_HEIGHT = 100;
+
 }

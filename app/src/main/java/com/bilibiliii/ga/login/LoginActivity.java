@@ -16,7 +16,7 @@ import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.conversation.ConversationActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
-import com.bilibiliii.ga.view.RoundImageView;
+import com.bilibiliii.ga.views.RoundImageView;
 
 /**
  * @author No.47 create at 2017/11/8.
