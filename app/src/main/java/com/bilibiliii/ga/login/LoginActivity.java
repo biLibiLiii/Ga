@@ -43,7 +43,7 @@ public class LoginActivity extends BaseActivity {
                 return false;
             }
         };
-        mUserProxy=UserProxy.getInstance(callback);
+        mUserProxy=UserProxy.getInstance();
         mRoundImageView=(RoundImageView) findViewById(R.id.person_icon);
         mRoundImageView.setImageResource(R.drawable.icon_test);
         mUserNameEditText=(EditText)findViewById(R.id.username_edittext);

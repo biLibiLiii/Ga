@@ -31,7 +31,7 @@ public class UserProxy implements IUserProxy {
         return new UserProxy();
     }
 
-    public void setHandlerCallback(Handler.Callback callback){
+    public void setHandlerCallback(Handler.Callback callback) {
         this.handler = new Handler(Looper.getMainLooper(), callback);
     }
 
@@ -228,3 +228,4 @@ public class UserProxy implements IUserProxy {
     public User getCurrentUser() {
         return User.getCurrentUser(User.class);
     }
+}

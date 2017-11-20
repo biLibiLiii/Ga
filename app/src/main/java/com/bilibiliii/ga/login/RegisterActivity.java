@@ -65,7 +65,7 @@ public class RegisterActivity extends BaseActivity {
                     }
                 };
                 Log.d("licl","you click login"+"userName:"+userName+" passWord:"+passWord);
-                mUserProxy= UserProxy.getInstance(callback);;
+                mUserProxy= UserProxy.getInstance();;
                 mUserProxy.register(userName, passWord, new CallBack<User>() {
                     @Override
                     public void onSuccess(User result) {
