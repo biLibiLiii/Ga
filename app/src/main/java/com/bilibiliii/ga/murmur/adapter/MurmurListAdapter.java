@@ -23,8 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by Cherie_No.47 on 2016/7/11 14:32.
- * Email jascal@163.com
+ * @author No.47 create at 2017/11/20.
  */
 public class MurmurListAdapter extends RecyclerView.Adapter<MurmurListAdapter.MurmurListViewHolder> {
     private Context context;

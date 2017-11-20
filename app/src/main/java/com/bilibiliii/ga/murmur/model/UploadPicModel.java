@@ -13,8 +13,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UploadFileListener;
 
 /**
- * Created by Cherie_No.47 on 2016/7/10 13:30.
- * Email jascal@163.com
+ * @author No.47 create at 2017/11/20.
  */
 public class UploadPicModel {
     private OnUpLoadPicResult onUpLoadPicResult;

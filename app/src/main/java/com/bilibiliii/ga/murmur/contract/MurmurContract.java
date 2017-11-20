@@ -6,8 +6,7 @@ import com.bilibiliii.ga.bean.Murmur;
 import java.util.List;
 
 /**
- * Created by Cherie_No.47 on 2016/7/11 14:10.
- * Email jascal@163.com
+ * @author No.47 create at 2017/11/20.
  */
 public class MurmurContract {
     public interface View   {

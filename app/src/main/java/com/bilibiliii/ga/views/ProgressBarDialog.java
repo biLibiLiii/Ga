@@ -10,8 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * Created by Cherie_No.47 on 2016/7/11 00:42.
- * Email jascal@163.com
+ * @author No.47 create at 2017/11/20.
  */
 public class ProgressBarDialog extends Dialog implements android.view.View.OnClickListener {
     private static int default_width = 150;

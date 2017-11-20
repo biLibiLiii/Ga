@@ -9,8 +9,7 @@ import com.bilibiliii.ga.murmur.model.UploadPicModel;
 
 
 /**
- * Created by Cherie_No.47 on 2016/7/10 08:11.
- * Email jascal@163.com
+ * @author No.47 create at 2017/11/20.
  */
 public class EditMurmurPresenter implements EditMurmurContract.Presenter,
         UploadPicModel.OnUpLoadPicResult, UpLoadMurmurModel.OnUpLoadMurResult {

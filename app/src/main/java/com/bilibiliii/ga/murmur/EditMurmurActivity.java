@@ -25,8 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Cherie_No.47 on 2016/7/9 13:18.
- * Email jascal@163.com
+ * @author No.47 create at 2017/11/20.
  */
 public class EditMurmurActivity extends AppCompatActivity implements EditMurmurContract.View {
     private EditMurmurContract.Presenter presenter;

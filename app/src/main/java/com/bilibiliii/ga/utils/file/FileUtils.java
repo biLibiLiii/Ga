@@ -11,8 +11,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
 /**
- * Created by Cherie_No.47 on 2016/7/10 08:09.
- * Email jascal@163.com
+ * @author No.47 create at 2017/11/20.
  */
 public class FileUtils {
     /*
