@@ -1,6 +1,7 @@
 package com.bilibiliii.ga.murmur.model;
 
 import com.bilibiliii.ga.bean.Murmur;
+import com.bilibiliii.ga.utils.bmob.UserProxy;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -23,7 +24,7 @@ public class UpLoadMurmurModel {
         Murmur murmur = new Murmur();
         murmur.setContent(content);
         murmur.setFavor(0);
-        murmur.setCreater(BmobUser.getCurrentUser().getObjectId());
+        murmur.setCreater(UserProxy.getInstance().getCurrentUser());
         murmur.setImageUri(imageUri);
         murmur.save(new SaveListener<String>() {
             @Override
@@ -41,7 +42,7 @@ public class UpLoadMurmurModel {
         Murmur murmur = new Murmur();
         murmur.setContent(content);
         murmur.setFavor(0);
-        murmur.setCreater(BmobUser.getCurrentUser().getObjectId());
+        murmur.setCreater(UserProxy.getInstance().getCurrentUser());
         murmur.setImageUri("");
         murmur.save(new SaveListener<String>() {
             @Override

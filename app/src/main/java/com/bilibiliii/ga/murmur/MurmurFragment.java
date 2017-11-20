@@ -61,4 +61,10 @@ public class MurmurFragment extends Fragment implements MurmurContract.View {
     @Override
     public void onGetMurmurFail() {
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getMurmurData();
+    }
 }

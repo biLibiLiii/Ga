@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobObject;
  */
 public class Murmur extends BmobObject {
     private String content;
-    private String creater;
+    private User creater;
     private String imageUri;
     private int favor;
 
@@ -24,11 +24,11 @@ public class Murmur extends BmobObject {
         this.content = content;
     }
 
-    public String getCreater() {
+    public User getCreater() {
         return creater;
     }
 
-    public void setCreater(String creater) {
+    public void setCreater(User creater) {
         this.creater = creater;
     }
 

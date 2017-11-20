@@ -37,13 +37,13 @@ public class MurmurListAdapter extends RecyclerView.Adapter<MurmurListAdapter.Mu
     @Override
     public MurmurListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Fresco.initialize(context.getApplicationContext());
-        MurmurListViewHolder murmurListViewHolder = new MurmurListViewHolder(LayoutInflater.from(context).inflate(R.layout.list_item_murmur, parent, false));
+        MurmurListViewHolder murmurListViewHolder = new MurmurListViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list_murmur, parent, false));
         return murmurListViewHolder;
     }
 
     @Override
     public void onBindViewHolder(MurmurListViewHolder holder, int position) {
-        holder.creater.setText(list.get(position).getCreater());
+        holder.creater.setText(list.get(position).getCreater().getUsername());
         if (!list.get(position).getContent().equals("")) {
             holder.content.setVisibility(View.VISIBLE);
             holder.content.setText(list.get(position).getContent());
