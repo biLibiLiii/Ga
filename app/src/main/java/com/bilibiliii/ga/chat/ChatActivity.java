@@ -28,10 +28,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         mRecyclerView=(RecyclerView)findViewById(R.id.msg_recyclerview) ;
-        mMsgs=new ArrayList<>();
-        mMsgs.add(new Msg("Hi!",0));
-        mMsgs.add(new Msg("Hello!",1));
-        mMsgs.add(new Msg("It is very nice to meet you!",0));
+        getData();
         mLinearLayoutManager=new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMsgAdapter=new MsgAdapter(mMsgs);
@@ -58,5 +55,11 @@ public class ChatActivity extends AppCompatActivity {
                 mMsgTextView.setText("");
             }
         });
+    }
+    public void getData(){
+        mMsgs=new ArrayList<>();
+        mMsgs.add(new Msg("Hi!",0));
+        mMsgs.add(new Msg("Hello!",1));
+        mMsgs.add(new Msg("It is very nice to meet you!",0));
     }
 }

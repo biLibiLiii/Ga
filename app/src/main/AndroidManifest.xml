@@ -53,7 +53,7 @@
 
         <activity android:name=".login.RegisterActivity">
         </activity>
-        <activity android:name=".chat.ConversationActivity">
+        <activity android:name=".conversation.ConversationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

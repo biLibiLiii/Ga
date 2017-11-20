@@ -1,13 +1,13 @@
-package com.bilibiliii.ga.chat;
+package com.bilibiliii.ga.conversation;
 
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
+import com.bilibiliii.ga.connector.ConnectorFragment;
 
 public class ConversationActivity extends BaseActivity implements View.OnClickListener{
     private static final String TITLE="会话";
@@ -16,6 +16,7 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
     private ImageButton mConverImageButton;
     private ImageButton mConnectorImageButton;
     private ImageButton mBrowserImageButton;
+    FragmentManager mFragmentManager;
     ConversationListFragment mConversationListFragment;
 
     @Override
@@ -34,8 +35,8 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
         mTitle.setText(TITLE);
         mBackImageButton.setBackgroundResource(R.drawable.category);
         mConversationListFragment=new ConversationListFragment();
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction()
+        mFragmentManager =getSupportFragmentManager();
+        mFragmentManager.beginTransaction()
                 .add(R.id.recyclerview_framelayout,mConversationListFragment)
                 .commit();
         mConverImageButton.setOnClickListener(this);
@@ -57,12 +58,16 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.conversation_imagebtn:
-
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.recyclerview_framelayout,mConversationListFragment)
+                        .commit();
                 resetImageIcon();
                 mConverImageButton.setBackgroundResource(R.drawable.interactive_fill);
                 break;
             case R.id.connector_imagebtn:
-
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.recyclerview_framelayout,new ConnectorFragment())
+                        .commit();
                 resetImageIcon();
                 mConnectorImageButton.setBackgroundResource(R.drawable.group_fill);
                 break;

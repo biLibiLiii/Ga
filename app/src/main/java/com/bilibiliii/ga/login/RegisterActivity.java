@@ -3,8 +3,6 @@ package com.bilibiliii.ga.login;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +14,7 @@ import android.widget.Toast;
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
 import com.bilibiliii.ga.bean.User;
-import com.bilibiliii.ga.chat.ConversationActivity;
-import com.bilibiliii.ga.main.MainActivity;
+import com.bilibiliii.ga.conversation.ConversationActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
 

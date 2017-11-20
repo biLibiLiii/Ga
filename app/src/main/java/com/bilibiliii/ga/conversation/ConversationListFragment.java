@@ -1,16 +1,19 @@
-package com.bilibiliii.ga.chat;
+package com.bilibiliii.ga.conversation;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.bean.Conversation;
+import com.bilibiliii.ga.chat.ChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +24,9 @@ public class ConversationListFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private RecyclerView mConverListRecyclerview;
     private ConversationAdapter mConversationAdapter;
-
-
     private List<Conversation> mConversations;
-
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     public ConversationListFragment() {
@@ -70,17 +69,30 @@ public class ConversationListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_conversation_list, container, false);
         mConverListRecyclerview=(RecyclerView)view.findViewById(R.id.conversation_list_recyclerView);
-        mConversations=new ArrayList<>();
-        mConversations.add(new Conversation("Tony Stark","11:09","Hi i am Iron Man!"));
-        mConversations.add(new Conversation("小红","11:01","我 秦始皇 打钱!"));
+        getData();
         mConversationAdapter=new ConversationAdapter(mConversations);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
         mConverListRecyclerview.setLayoutManager(linearLayoutManager);
         mConverListRecyclerview.setAdapter(mConversationAdapter);
+        mConversationAdapter.setOnItemClickListener(new ConversationAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent=new Intent(getContext(), ChatActivity.class);
+                startActivity(intent);
+            }
 
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
         return view;
     }
-
+    public void getData(){
+        mConversations=new ArrayList<>();
+        mConversations.add(new Conversation("Tony Stark","11:09","Hi i am Iron Man!"));
+        mConversations.add(new Conversation("小红","11:01","我 秦始皇 打钱!"));
+    }
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
