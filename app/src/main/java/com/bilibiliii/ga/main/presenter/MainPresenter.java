@@ -4,10 +4,9 @@ import android.os.Message;
 import android.util.Log;
 
 import com.bilibiliii.ga.base.BasePresenter;
-import com.bilibiliii.ga.bean.Friend;
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.bmob.CallBack;
-import com.bilibiliii.ga.utils.bmob.FriendProxy;
+import com.bilibiliii.ga.utils.bmob.I.IMessageProxy;
 import com.bilibiliii.ga.utils.bmob.I.IUserProxy;
 import com.bilibiliii.ga.utils.bmob.MessageProxy;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
@@ -30,7 +29,7 @@ public class MainPresenter extends BasePresenter {
     }
 
     public void login() {
-        userProxy.login("AJCARE", "111111", new CallBack<User>() {
+        userProxy.login("123", "111111", new CallBack<User>() {
             @Override
             public void onSuccess(User result) {
                 Log.d(TAG, "success");
@@ -49,45 +48,26 @@ public class MainPresenter extends BasePresenter {
     // xWLqKKKP AJCARE
     // 928444c27b 123
     private void test() {
-        MessageProxy messageProxy = new MessageProxy();
+        IMessageProxy messageProxy = MessageProxy.getInstance();
         BmobIMUserInfo userInfo = new BmobIMUserInfo();
-        userInfo.setUserId("928444c27b");
-        userInfo.setName("123");
+        userInfo.setUserId("xWLqKKKP");
+        userInfo.setName("AJCARE");
         messageProxy.createNewConversation(userInfo);
         messageProxy.queryMessages(new CallBack<List<BmobIMMessage>>() {
             @Override
             public void onSuccess(List<BmobIMMessage> result) {
-                Log.d(TAG, "onSuccess query message");
+                if (result.size() <= 0) {
+                    Log.d(TAG, "success while no message");
+                    return;
+                }
                 Log.d(TAG, result.get(0).getContent());
             }
 
             @Override
             public void onFail(String errorInfo) {
-                Log.d(TAG, "onFail query message");
+                Log.d(TAG, "fail to get message");
             }
         });
-        new FriendProxy(null).queryFriends(new CallBack<List<Friend>>() {
-            @Override
-            public void onSuccess(List<Friend> result) {
-                Log.d(TAG, "onSuccess queryFriends");
-            }
-
-            @Override
-            public void onFail(String errorInfo) {
-                Log.d(TAG, "onFail queryFriends:" + errorInfo);
-            }
-        });
-//        messageProxy.sendMessage("hello, aj!", new CallBack<BmobIMMessage>() {
-//            @Override
-//            public void onSuccess(BmobIMMessage result) {
-//                Log.d(TAG, "onSuccess send message");
-//            }
-//
-//            @Override
-//            public void onFail(String errorInfo) {
-//                Log.d(TAG, "onFail send message");
-//            }
-//        });
     }
 
     @Override
