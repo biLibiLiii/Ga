@@ -3,6 +3,7 @@ package com.bilibiliii.ga.murmur.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.bean.Murmur;
+import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.Common;
 import com.bilibiliii.ga.utils.ImageUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -43,7 +45,7 @@ public class MurmurListAdapter extends RecyclerView.Adapter<MurmurListAdapter.Mu
 
     @Override
     public void onBindViewHolder(MurmurListViewHolder holder, int position) {
-        holder.creater.setText(list.get(position).getCreater().getUsername());
+        holder.creater.setText(list.get(position).getCreaterName());
         if (!list.get(position).getContent().equals("")) {
             holder.content.setVisibility(View.VISIBLE);
             holder.content.setText(list.get(position).getContent());

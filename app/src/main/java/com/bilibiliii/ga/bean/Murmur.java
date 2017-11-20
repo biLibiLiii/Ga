@@ -10,6 +10,16 @@ public class Murmur extends BmobObject {
     private String content;
     private User creater;
     private String imageUri;
+    private String createrName;
+
+    public String getCreaterName() {
+        return createrName;
+    }
+
+    public void setCreaterName(String createrName) {
+        this.createrName = createrName;
+    }
+
     private int favor;
 
     public Murmur(){

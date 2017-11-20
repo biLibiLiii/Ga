@@ -26,6 +26,7 @@ public class UpLoadMurmurModel {
         murmur.setFavor(0);
         murmur.setCreater(UserProxy.getInstance().getCurrentUser());
         murmur.setImageUri(imageUri);
+        murmur.setCreaterName(UserProxy.getInstance().getCurrentUser().getUsername());
         murmur.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
@@ -44,6 +45,7 @@ public class UpLoadMurmurModel {
         murmur.setFavor(0);
         murmur.setCreater(UserProxy.getInstance().getCurrentUser());
         murmur.setImageUri("");
+        murmur.setCreaterName(UserProxy.getInstance().getCurrentUser().getUsername());
         murmur.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
