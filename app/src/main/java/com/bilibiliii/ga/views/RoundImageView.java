@@ -1,4 +1,4 @@
-package com.bilibiliii.ga.view;
+package com.bilibiliii.ga.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,6 +14,9 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+ * @author No.47 create at 2017/11/20.
+ */
 public class RoundImageView extends ImageView {
     private int defaultWidth = 0;
     private int defaultHeight = 0;

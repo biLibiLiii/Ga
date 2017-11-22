@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
-    <com.bilibiliii.ga.view.RoundImageView
+    <com.bilibiliii.ga.views.RoundImageView
         android:layout_marginTop="90dp"
         android:id="@+id/person_icon"
         android:layout_width="100dp"
