@@ -12,13 +12,21 @@ import com.bilibiliii.ga.bean.Conversation;
 
 import java.util.List;
 
+import cn.bmob.newim.bean.BmobIMConversation;
+
 /**
  * Created by Administrator on 2017/11/14.
  */
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder> {
 
-    private List<Conversation> mConversations;
+
+    private List<BmobIMConversation> mBmobIMConversations;
+
+
+    public ConversationAdapter(List<BmobIMConversation> bmobIMConversations) {
+        mBmobIMConversations = bmobIMConversations;
+    }
 
     public interface OnItemClickListener{
         void onItemClick(View view ,int position);
@@ -30,16 +38,14 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         mOnItemClickListener=onItemClickListener;
     }
-    public ConversationAdapter(List<Conversation> conversations) {
-        mConversations = conversations;
-    }
 
-    public void setConversations(List<Conversation> conversations) {
-        mConversations = conversations;
+
+    public void setConversations(List<BmobIMConversation> conversations) {
+        mBmobIMConversations = conversations;
     }
-    public void addConversation(Conversation conversation){
-        mConversations.add(conversation);
-        notifyItemInserted(mConversations.size()-1);
+    public void addConversation(BmobIMConversation conversation){
+        mBmobIMConversations.add(conversation);
+        notifyItemInserted(mBmobIMConversations.size()-1);
     }
     @Override
     public ConversationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,9 +57,9 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
     @Override
     public void onBindViewHolder(final ConversationViewHolder holder, int position) {
-        holder.mUserName.setText(mConversations.get(position).getUserName());
-        holder.mConversationTime.setText(mConversations.get(position).getTime());
-        holder.mLastConversation.setText(mConversations.get(position).getLastConversation());
+        holder.mUserName.setText(mBmobIMConversations.get(position).getConversationTitle());
+        holder.mConversationTime.setText(mBmobIMConversations.get(position).getUpdateTime()+"");
+        holder.mLastConversation.setText(mBmobIMConversations.get(position).getDraft());
         holder.mUserIcon.setImageResource(R.drawable.icon_test);
 
         if (mOnItemClickListener != null)
@@ -85,7 +91,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
     @Override
     public int getItemCount() {
-        return mConversations.size();
+        return mBmobIMConversations.size();
     }
 
     class ConversationViewHolder extends RecyclerView.ViewHolder{

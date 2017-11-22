@@ -16,7 +16,8 @@ import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
-import com.bilibiliii.ga.view.RoundImageView;
+import com.bilibiliii.ga.views.RoundImageView;
+
 
 /**
  * @author No.47 create at 2017/11/8.
@@ -25,7 +26,6 @@ public class LoginActivity extends BaseActivity {
     private EditText mUserNameEditText;
     private EditText mPassWordEditText;
     private Button mLoginButton;
-    private Button mRegisteButton;
     private RoundImageView mRoundImageView;
     private TextView mRegisteTextview;
     UserProxy mUserProxy;
