@@ -10,15 +10,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:background="@drawable/message_sent_box"
+        android:orientation="horizontal"
         >
+        <ImageButton
+            android:id="@+id/left_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
         <TextView
+            android:layout_marginLeft="11dp"
             android:id="@+id/left_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:background="@drawable/message_sent_box"/>
     </LinearLayout>
 
     <LinearLayout
@@ -26,14 +32,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@drawable/message_sent_box">
+        android:orientation="horizontal">
         <TextView
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginRight="11dp"
             android:id="@+id/right_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:background="@drawable/message_sent_box"/>
+        <ImageButton
+            android:id="@+id/right_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
     </LinearLayout>
 
 </LinearLayout>

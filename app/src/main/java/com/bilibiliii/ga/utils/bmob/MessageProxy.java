@@ -35,6 +35,10 @@ public class MessageProxy implements IMessageProxy {
         return instance;
     }
 
+    public void setMessageManager(BmobIMConversation messageManager) {
+        this.messageManager = messageManager;
+    }
+
     @Override
     public void createNewConversation(BmobIMUserInfo userInfo) {
         messageManager = BmobIMConversation.obtain(BmobIMClient.getInstance(),

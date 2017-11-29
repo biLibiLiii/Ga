@@ -107,6 +107,9 @@ public class UserProxy implements IUserProxy {
             public void done(String uid, BmobException e) {
                 if (e == null) {
                     setIMStateCallback();
+                    /**
+                     * 此处有空指针异常
+                     */
                     handler.sendEmptyMessage(STATE_CONNECTED);
                 } else {
                     handler.sendEmptyMessage(STATE_DISCONNECT);

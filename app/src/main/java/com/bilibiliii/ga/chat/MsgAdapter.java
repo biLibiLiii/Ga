@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,13 +23,13 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder> {
     private List<Msg> mMsgs;
 
     public MsgAdapter(List<Msg> msgs) {
-        Log.d("licl","MsgAdapter excute");
+
         mMsgs = msgs;
     }
 
     @Override
     public MsgViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("licl","onCreateViewHolder excute");
+
         MsgViewHolder msgViewHolder=new MsgViewHolder(LayoutInflater
                 .from(parent.getContext()).inflate(R.layout.item_chat_recyclerview,parent,false));
         return msgViewHolder;
@@ -36,22 +37,25 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder> {
 
     @Override
     public void onBindViewHolder(MsgViewHolder holder, int position) {
-        Log.d("licl","onBindViewHolder excute");
+
         if(mMsgs.get(position).getType()==Msg.TYPE_SEND){
             holder.mLeftMsgLayout.setVisibility(View.GONE);
             holder.mRightMsgLayout.setVisibility(View.VISIBLE);
 
             holder.mRightTextview.setText(mMsgs.get(position).getContent());
+            holder.mRightImageButton.setBackgroundResource(R.drawable.icon_test);
         }else {
             holder.mRightMsgLayout.setVisibility(View.GONE);
             holder.mLeftMsgLayout.setVisibility(View.VISIBLE);
+
             holder.mLeftTextview.setText(mMsgs.get(position).getContent());
+            holder.mLeftImageButton.setBackgroundResource(R.drawable.icon_test);
         }
     }
 
     @Override
     public int getItemCount() {
-        Log.d("licl","getItemCount excute");
+
         return mMsgs.size();
 
     }
@@ -61,12 +65,16 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder> {
         LinearLayout mRightMsgLayout;
         TextView mLeftTextview;
         TextView mRightTextview;
+        ImageButton mLeftImageButton;
+        ImageButton mRightImageButton;
         public MsgViewHolder(View itemView) {
             super(itemView);
             mLeftMsgLayout=(LinearLayout)itemView.findViewById(R.id.left_linearLayout);
             mRightMsgLayout=(LinearLayout)itemView.findViewById(R.id.right_linearLayout);
             mLeftTextview=(TextView)itemView.findViewById(R.id.left_msg);
             mRightTextview=(TextView)itemView.findViewById(R.id.right_msg);
+            mLeftImageButton=(ImageButton)itemView.findViewById(R.id.left_icon);
+            mRightImageButton=(ImageButton)itemView.findViewById(R.id.right_icon);
         }
     }
 

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.bean.Conversation;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import cn.bmob.newim.bean.BmobIMConversation;
@@ -58,7 +60,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     @Override
     public void onBindViewHolder(final ConversationViewHolder holder, int position) {
         holder.mUserName.setText(mBmobIMConversations.get(position).getConversationTitle());
-        holder.mConversationTime.setText(mBmobIMConversations.get(position).getUpdateTime()+"");
+        holder.mConversationTime.setText(stampToDate(mBmobIMConversations.get(position).getUpdateTime()));
         holder.mLastConversation.setText(mBmobIMConversations.get(position).getDraft());
         holder.mUserIcon.setImageResource(R.drawable.icon_test);
 
@@ -93,7 +95,13 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     public int getItemCount() {
         return mBmobIMConversations.size();
     }
-
+    public String stampToDate(long timeStamp){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(timeStamp);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
     class ConversationViewHolder extends RecyclerView.ViewHolder{
         ImageView mUserIcon;
         TextView mUserName;

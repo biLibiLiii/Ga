@@ -18,20 +18,17 @@ import com.bilibiliii.ga.bean.Conversation;
 import com.bilibiliii.ga.chat.ChatActivity;
 import com.bilibiliii.ga.utils.bmob.MessageProxy;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.bmob.newim.bean.BmobIMConversation;
 
 public class ConversationListFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private RecyclerView mConverListRecyclerview;
     private ConversationAdapter mConversationAdapter;
-    private List<Conversation> mConversations;
-    private String mParam1;
-    private String mParam2;
     private OnFragmentInteractionListener mListener;
     private List<BmobIMConversation> mBmobIMConversations;
     private MessageProxy mMessageProxy;
@@ -40,20 +37,11 @@ public class ConversationListFragment extends Fragment {
     public ConversationListFragment() {
 
     }
-    @SuppressLint("ValidFragment")
-    public ConversationListFragment(List<Conversation> conversations) {
-        mConversations = conversations;
-    }
 
-    public void setConversations(List<Conversation> conversations) {
-        mConversations = conversations;
-    }
 
     public static ConversationListFragment newInstance(String param1, String param2) {
         ConversationListFragment fragment = new ConversationListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,12 +57,15 @@ public class ConversationListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mMessageProxy=new MessageProxy();
         mBmobIMConversations=mMessageProxy.queryAllConversation();
-        Log.d("licl","mBmobIMConversations size:"+mBmobIMConversations.size());
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        if(mBmobIMConversations==null){
+            mBmobIMConversations=new ArrayList();
         }
+        mBmobIMConversations.add(new BmobIMConversation());
+        Log.d("licl","mBmobIMConversations size:"+mBmobIMConversations.size());
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,6 +81,8 @@ public class ConversationListFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent=new Intent(getContext(), ChatActivity.class);
+                BmobIMConversation bmobIMConversation=mBmobIMConversations.get(position);
+                intent.putExtra("conversation",bmobIMConversation);
                 startActivity(intent);
             }
 
@@ -101,9 +94,7 @@ public class ConversationListFragment extends Fragment {
         return view;
     }
     public void getData(){
-        mConversations=new ArrayList<>();
-        mConversations.add(new Conversation("Tony Stark","11:09","Hi i am Iron Man!"));
-        mConversations.add(new Conversation("小红","11:01","我 秦始皇 打钱!"));
+
     }
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

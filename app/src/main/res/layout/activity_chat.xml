@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.bilibiliii.ga.chat.ChatActivity">
-
+    <include layout="@layout/title_bar"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/msg_recyclerview"
         android:layout_width="match_parent"
