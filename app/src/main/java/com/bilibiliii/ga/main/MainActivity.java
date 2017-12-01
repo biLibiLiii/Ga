@@ -17,6 +17,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private ImageButton mConverImageButton;
     private ImageButton mConnectorImageButton;
     private ImageButton mBrowserImageButton;
+    private ImageButton mRightImageButton;
     FragmentManager mFragmentManager;
     ConversationListFragment mConversationListFragment;
 
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         mBrowserImageButton=(ImageButton) findViewById(R.id.browser_imagebtn);
         mTitle=(TextView) findViewById(R.id.titlebar_title);
         mBackImageButton=(ImageButton)findViewById(R.id.titlebar_left_imagebtn);
+        mRightImageButton=(ImageButton)findViewById(R.id.titlebar_right_imagebtn);
         mBackImageButton.setVisibility(View.VISIBLE);
         mTitle.setText(TITLE);
         mBackImageButton.setBackgroundResource(R.drawable.category);
@@ -71,6 +73,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         .commit();
                 resetImageIcon();
                 mConnectorImageButton.setBackgroundResource(R.drawable.group_fill);
+                mRightImageButton.setBackgroundResource(R.drawable.add);
+                mRightImageButton.setVisibility(View.VISIBLE);
                 break;
             case R.id.browser_imagebtn:
 
@@ -81,6 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void resetImageIcon(){
+        mRightImageButton.setVisibility(View.GONE);
         mConverImageButton.setBackgroundResource(R.drawable.interactive);
         mConnectorImageButton.setBackgroundResource(R.drawable.group);
         mBrowserImageButton.setBackgroundResource(R.drawable.browse);

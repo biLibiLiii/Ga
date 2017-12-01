@@ -1,15 +1,15 @@
 package com.bilibiliii.ga.connector;
 
+
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -25,11 +25,10 @@ import com.bilibiliii.ga.utils.bmob.UserProxy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectorFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class AddFriendFragment extends Fragment {
     private ListView connectorListview;
     private List<User> mUsers=new ArrayList<>();
     private TextView mUsername;
@@ -37,44 +36,19 @@ public class ConnectorFragment extends Fragment {
     private ImageButton mSearchImageButton;
     private UserProxy mUserProxy;
     private ConnectorAdapter mConnectorAdapter;
-    private MainActivity mContext;
-    private ImageButton mRightImageButton;
-    public ConnectorFragment() {
-
+    private Context mContext;
+    public AddFriendFragment() {
+        // Required empty public constructor
     }
 
-    public static ConnectorFragment newInstance(String param1, String param2) {
-        ConnectorFragment fragment = new ConnectorFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mContext=(MainActivity)getActivity();
-        mUserProxy=UserProxy.getInstance();
-        mRightImageButton=(ImageButton)mContext.findViewById(R.id.titlebar_right_imagebtn);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        getData();
-    }
-    public void getData(){
-        User.UserBuilder userBuilder=new User.UserBuilder();
-        mUsers.add(userBuilder.setUsername("hawaii").build());
-        mUsers.add(userBuilder.setUsername("guoda").build());
-        mUsers.add(userBuilder.setUsername("aha").build());
-
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_connector, container, false);
+        mContext=(MainActivity)getActivity();
+        View view=inflater.inflate(R.layout.fragment_add_friend, container, false);
+        mUserProxy= UserProxy.getInstance();
+        getData();
         connectorListview=(ListView) view.findViewById(R.id.connector_listview);
         mSearchEditText=(EditText)view.findViewById(R.id.search_name_edittext) ;
         mSearchImageButton=(ImageButton)view.findViewById(R.id.search_connector_imagebutton);
@@ -84,16 +58,7 @@ public class ConnectorFragment extends Fragment {
         initListener();
         return view;
     }
-
     private void initListener(){
-        mRightImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mContext.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.recyclerview_framelayout,new AddFriendFragment())
-                        .commit();
-            }
-        });
         mSearchImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,9 +81,14 @@ public class ConnectorFragment extends Fragment {
             }
         });
     }
+    public void getData(){
+        User.UserBuilder userBuilder=new User.UserBuilder();
 
-    private class ConnectorAdapter extends BaseAdapter{
+
+    }
+    private class ConnectorAdapter extends BaseAdapter {
         public List<User> mUsers;
+        public Button addFriendBtn;
         @Override
         public int getCount() {
             return mUsers.size();
@@ -137,15 +107,18 @@ public class ConnectorFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             if (view == null) {
-                view=LayoutInflater.from(getContext()).inflate(R.layout.item_connector_listview,viewGroup,false);
+                view=LayoutInflater.from(getContext()).inflate(R.layout.item_addconnector_listview,viewGroup,false);
             }
+            addFriendBtn=(Button)view.findViewById(R.id.add_conn_btn);
             mUsername=(TextView)view.findViewById(R.id.connector_name);
             mUsername.setText(mUsers.get(i).getUsername());
+            addFriendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
             return view;
         }
     }
-
-
-
-
 }
