@@ -15,6 +15,9 @@ import com.bilibiliii.ga.bean.Msg;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.MessageProxy;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,7 @@ import cn.bmob.newim.bean.BmobIMConversation;
 import cn.bmob.newim.bean.BmobIMMessage;
 import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.BmobIMClient;
+import cn.bmob.newim.event.MessageEvent;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -32,7 +36,7 @@ public class ChatActivity extends AppCompatActivity {
     private MsgAdapter mMsgAdapter;
     private List<Msg> mMsgs;
     private BmobIMConversation mBmobIMConversation;
-    LinearLayoutManager mLinearLayoutManager;
+    private LinearLayoutManager mLinearLayoutManager;
     private TextView mMsgTextView;
     private Button mSendButton;
     private TextView mTitle;
@@ -41,6 +45,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        EventBus.getDefault().register(this);
 
         initDataView();
         initListeners();
@@ -123,6 +128,18 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEventMainThread(MessageEvent event) {
+        mMsgAdapter.addMsg(new Msg(event.getMessage().getContent(),Msg.TYPE_RECEIVED));
+    }
+
 }
