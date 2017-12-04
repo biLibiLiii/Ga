@@ -21,6 +21,7 @@
     </style>
 
     <style name="text_style">
+        <item name="android:singleLine">true</item>
         <item name="android:typeface">normal</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:background">@drawable/edittext_frame</item>

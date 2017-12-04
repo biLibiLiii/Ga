@@ -23,10 +23,12 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder> {
     private List<Msg> mMsgs;
 
     public MsgAdapter(List<Msg> msgs) {
-
         mMsgs = msgs;
     }
-
+    public void addMsg(Msg msg){
+        mMsgs.add(msg);
+        notifyItemInserted(mMsgs.size()-1);
+    }
     @Override
     public MsgViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

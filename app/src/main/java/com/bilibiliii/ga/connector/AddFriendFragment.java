@@ -17,18 +17,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bilibiliii.ga.R;
+import com.bilibiliii.ga.base.BaseFragment;
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
+import com.bilibiliii.ga.utils.bmob.FriendProxy;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.newim.bean.BmobIMMessage;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddFriendFragment extends Fragment {
+public class AddFriendFragment extends BaseFragment {
     private ListView connectorListview;
     private List<User> mUsers=new ArrayList<>();
     private TextView mUsername;
@@ -37,6 +41,7 @@ public class AddFriendFragment extends Fragment {
     private UserProxy mUserProxy;
     private ConnectorAdapter mConnectorAdapter;
     private Context mContext;
+    private FriendProxy mFriendProxy;
     public AddFriendFragment() {
         // Required empty public constructor
     }
@@ -48,6 +53,7 @@ public class AddFriendFragment extends Fragment {
         mContext=(MainActivity)getActivity();
         View view=inflater.inflate(R.layout.fragment_add_friend, container, false);
         mUserProxy= UserProxy.getInstance();
+        mFriendProxy=new FriendProxy();
         getData();
         connectorListview=(ListView) view.findViewById(R.id.connector_listview);
         mSearchEditText=(EditText)view.findViewById(R.id.search_name_edittext) ;
@@ -105,7 +111,7 @@ public class AddFriendFragment extends Fragment {
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(final int i, View view, ViewGroup viewGroup) {
             if (view == null) {
                 view=LayoutInflater.from(getContext()).inflate(R.layout.item_addconnector_listview,viewGroup,false);
             }
@@ -115,7 +121,17 @@ public class AddFriendFragment extends Fragment {
             addFriendBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    mFriendProxy.sendAddFriendMessage(mUsers.get(i), new CallBack<BmobIMMessage>() {
+                        @Override
+                        public void onSuccess(BmobIMMessage result) {
+                            Toast.makeText(getContext(),"发送添加好友请求成功",Toast.LENGTH_SHORT).show();
+                        }
 
+                        @Override
+                        public void onFail(String errorInfo) {
+                            Toast.makeText(getContext(),"发送添加好友请求失败",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
             return view;

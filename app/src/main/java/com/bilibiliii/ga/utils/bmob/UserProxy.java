@@ -6,11 +6,17 @@ import android.util.Log;
 
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.bmob.I.IUserProxy;
+import com.bilibiliii.ga.utils.bmob.I.QueryUserListener;
+import com.bilibiliii.ga.utils.bmob.I.UpdateCacheListener;
 
 import java.util.List;
 
 import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMMessage;
+import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.ConnectionStatus;
+import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.v3.BmobQuery;
@@ -230,5 +236,41 @@ public class UserProxy implements IUserProxy {
     @Override
     public User getCurrentUser() {
         return User.getCurrentUser(User.class);
+    }
+
+    public void updateUserInfo(MessageEvent event, final UpdateCacheListener listener) {
+        final BmobIMConversation conversation = event.getConversation();
+        final BmobIMUserInfo info = event.getFromUserInfo();
+        final BmobIMMessage msg = event.getMessage();
+        String username = info.getName();
+//        String avatar = info.getAvatar();
+        String title = conversation.getConversationTitle();
+//        String icon = conversation.getConversationIcon();
+        //SDK内部将新会话的会话标题用objectId表示，因此需要比对用户名和私聊会话标题，后续会根据会话类型进行判断
+        if (!username.equals(title) ) {
+            UserProxy.getInstance().queryUserById(info.getUserId(), new CallBack<User>() {
+                @Override
+                public void onSuccess(User result) {
+                    String name = result.getUsername();
+//                        String avatar = s.getAvatar();
+//                        conversation.setConversationIcon(avatar);
+                    conversation.setConversationTitle(name);
+                    info.setName(name);
+//                        info.setAvatar(avatar);
+                    //TODO 用户管理：2.7、更新用户资料，用于在会话页面、聊天页面以及个人信息页面显示
+                    BmobIM.getInstance().updateUserInfo(info);
+                    //TODO 会话：4.7、更新会话资料-如果消息是暂态消息，则不更新会话资料
+                    if (!msg.isTransient()) {
+                        BmobIM.getInstance().updateConversation(conversation);
+                    }
+                }
+                @Override
+                public void onFail(String errorInfo) {
+                    listener.done(null);
+                }
+            });
+        } else {
+            listener.done(null);
+        }
     }
 }

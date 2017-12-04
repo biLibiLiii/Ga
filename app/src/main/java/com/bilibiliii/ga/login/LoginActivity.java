@@ -60,6 +60,12 @@ public class LoginActivity extends BaseActivity {
 
                 String userName=mUserNameEditText.getText().toString();
                 String passWord=mPassWordEditText.getText().toString();
+                /*
+                * 调试方便登陆用
+                * */
+                userName=userName.equals("")?"li6":userName;
+                passWord=passWord.equals("")?"6":passWord;
+
                 if("".equals(userName)||"".equals(passWord)){
                     Toast.makeText(LoginActivity.this,"用户名或密码不能为空",Toast.LENGTH_SHORT).show();
                     return;

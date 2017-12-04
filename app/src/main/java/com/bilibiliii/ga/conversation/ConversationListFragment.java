@@ -14,18 +14,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bilibiliii.ga.R;
+import com.bilibiliii.ga.base.BaseFragment;
 import com.bilibiliii.ga.bean.Conversation;
 import com.bilibiliii.ga.chat.ChatActivity;
 import com.bilibiliii.ga.utils.bmob.MessageProxy;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.event.MessageEvent;
+import cn.bmob.newim.event.OfflineMessageEvent;
 
-public class ConversationListFragment extends Fragment {
+public class ConversationListFragment extends BaseFragment {
 
     private RecyclerView mConverListRecyclerview;
     private ConversationAdapter mConversationAdapter;
@@ -51,6 +57,7 @@ public class ConversationListFragment extends Fragment {
     */
     public void addConversation(BmobIMConversation conversation){
         mConversationAdapter.addConversation(conversation);
+
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,6 +103,9 @@ public class ConversationListFragment extends Fragment {
     public void getData(){
 
     }
+
+
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -114,5 +124,33 @@ public class ConversationListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Subscribe
+    public void onEventMainThread(MessageEvent event) {
+        addConversation(event.getConversation());
+        checkRedPoint();
+    }
+
+    @Subscribe
+    public void onEventMainThread(OfflineMessageEvent event) {
+        checkRedPoint();
+    }
+
+    private void checkRedPoint() {
+
+        //TODO 会话：4.4、获取全部会话的未读消息数量
+        int count = (int) BmobIM.getInstance().getAllUnReadCount();
+        if (count > 0) {
+
+        } else {
+
+        }
+        //TODO 好友管理：是否有好友添加的请求
+//        if (NewFriendManager.getInstance(this).hasNewFriendInvitation()) {
+//            iv_contact_tips.setVisibility(View.VISIBLE);
+//        } else {
+//            iv_contact_tips.setVisibility(View.GONE);
+//        }
     }
 }

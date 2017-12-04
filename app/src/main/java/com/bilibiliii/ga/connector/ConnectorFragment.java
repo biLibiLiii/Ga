@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bilibiliii.ga.R;
+import com.bilibiliii.ga.base.BaseFragment;
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
@@ -25,7 +26,8 @@ import com.bilibiliii.ga.utils.bmob.UserProxy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectorFragment extends Fragment {
+public class ConnectorFragment extends BaseFragment
+{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
