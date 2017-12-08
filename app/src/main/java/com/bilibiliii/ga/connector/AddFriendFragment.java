@@ -121,6 +121,7 @@ public class AddFriendFragment extends BaseFragment {
             addFriendBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     mFriendProxy.sendAddFriendMessage(mUsers.get(i), new CallBack<BmobIMMessage>() {
                         @Override
                         public void onSuccess(BmobIMMessage result) {

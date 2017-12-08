@@ -13,7 +13,9 @@ import java.util.Map;
 
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMExtraMessage;
 import cn.bmob.newim.bean.BmobIMMessage;
+import cn.bmob.newim.bean.BmobIMTextMessage;
 import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.BmobIMClient;
 import cn.bmob.newim.listener.MessageSendListener;
@@ -71,7 +73,7 @@ public class FriendProxy implements IFriendProxy {
         userInfo.setName(user.getUsername());
         BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(userInfo, true, null);
         BmobIMConversation messageManager = BmobIMConversation.obtain(BmobIMClient.getInstance(), conversationEntrance);
-        AddFriendMessage msg = new AddFriendMessage();
+        BmobIMTextMessage msg = new BmobIMTextMessage();
         User currentUser = UserProxy.getInstance().getCurrentUser();
         msg.setContent("很高兴认识你，可以加个好友吗?");
         Map<String, Object> map = new HashMap<>();
@@ -88,6 +90,20 @@ public class FriendProxy implements IFriendProxy {
                 }
             }
         });
+//        MessageProxy messageProxy=new MessageProxy();
+//        messageProxy.setMessageManager(messageManager);
+//        messageProxy.sendMessage("很高兴认识你，可以加个好友吗?", new CallBack<BmobIMMessage>() {
+//            @Override
+//            public void onSuccess(BmobIMMessage result) {
+//                callBack.onSuccess(result);
+//            }
+//
+//            @Override
+//            public void onFail(String errorInfo) {
+//                callBack.onFail(errorInfo);
+//            }
+//        });
+
     }
 
     private void sendAgreeAddFriendMessage(NewFriendRe add, final CallBack<BmobIMMessage> callBack) {

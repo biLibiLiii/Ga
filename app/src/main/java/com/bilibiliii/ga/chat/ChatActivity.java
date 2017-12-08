@@ -119,7 +119,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<BmobIMMessage> result) {
                 for(BmobIMMessage bmobIMMessage :result){
-                    int type=bmobIMMessage.getToId()==BmobIM.getInstance().getCurrentUid()?Msg.TYPE_RECEIVED:Msg.TYPE_SEND;
+                    int type=(bmobIMMessage.getToId().equals(BmobIM.getInstance().getCurrentUid())?Msg.TYPE_RECEIVED:Msg.TYPE_SEND);
                     mMsgs.add(new Msg(bmobIMMessage.getContent(),type));
                 }
             }

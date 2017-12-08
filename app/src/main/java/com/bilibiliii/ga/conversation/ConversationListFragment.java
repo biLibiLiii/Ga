@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseFragment;
@@ -19,6 +20,7 @@ import com.bilibiliii.ga.bean.Conversation;
 import com.bilibiliii.ga.chat.ChatActivity;
 import com.bilibiliii.ga.utils.bmob.MessageProxy;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
@@ -67,6 +69,7 @@ public class ConversationListFragment extends BaseFragment {
         if(mBmobIMConversations==null){
             mBmobIMConversations=new ArrayList();
         }
+        EventBus.getDefault().register(this);
         mBmobIMConversations.add(new BmobIMConversation());
         Log.d("licl","mBmobIMConversations size:"+mBmobIMConversations.size());
 
@@ -95,7 +98,7 @@ public class ConversationListFragment extends BaseFragment {
 
             @Override
             public void onItemLongClick(View view, int position) {
-
+                BmobIM.getInstance().deleteConversation(mBmobIMConversations.get(position) );
             }
         });
         return view;
@@ -120,6 +123,11 @@ public class ConversationListFragment extends BaseFragment {
         mListener = null;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
@@ -138,7 +146,7 @@ public class ConversationListFragment extends BaseFragment {
     }
 
     private void checkRedPoint() {
-
+        Toast.makeText(getContext(),"收到消息",Toast.LENGTH_SHORT).show();
         //TODO 会话：4.4、获取全部会话的未读消息数量
         int count = (int) BmobIM.getInstance().getAllUnReadCount();
         if (count > 0) {

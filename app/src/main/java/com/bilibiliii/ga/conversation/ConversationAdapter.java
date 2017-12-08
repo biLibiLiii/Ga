@@ -46,6 +46,11 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         mBmobIMConversations = conversations;
     }
     public void addConversation(BmobIMConversation conversation){
+//        for(BmobIMConversation tmpConcersation:mBmobIMConversations){
+//            if(tmpConcersation.getConversationTitle().equals(conversation.getConversationTitle())){
+//                return;
+//            }
+//        }
         mBmobIMConversations.add(conversation);
         notifyItemInserted(mBmobIMConversations.size()-1);
     }

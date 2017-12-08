@@ -263,6 +263,7 @@ public class UserProxy implements IUserProxy {
                     if (!msg.isTransient()) {
                         BmobIM.getInstance().updateConversation(conversation);
                     }
+                    listener.done(null);
                 }
                 @Override
                 public void onFail(String errorInfo) {
