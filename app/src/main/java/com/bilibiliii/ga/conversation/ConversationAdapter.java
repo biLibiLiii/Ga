@@ -1,6 +1,7 @@
 package com.bilibiliii.ga.conversation;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +47,12 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         mBmobIMConversations = conversations;
     }
     public void addConversation(BmobIMConversation conversation){
-//        for(BmobIMConversation tmpConcersation:mBmobIMConversations){
-//            if(tmpConcersation.getConversationTitle().equals(conversation.getConversationTitle())){
-//                return;
-//            }
-//        }
+        for(BmobIMConversation tmpConcersation:mBmobIMConversations){
+//            Log.d("licl",tmpConcersation.getConversationTitle()+" "+conversation.getConversationTitle());
+            if(tmpConcersation.getConversationTitle().equals(conversation.getConversationTitle())){
+                return;
+            }
+        }
         mBmobIMConversations.add(conversation);
         notifyItemInserted(mBmobIMConversations.size()-1);
     }
