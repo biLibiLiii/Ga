@@ -70,7 +70,6 @@ public class ConversationListFragment extends BaseFragment {
             mBmobIMConversations=new ArrayList();
         }
         EventBus.getDefault().register(this);
-        mBmobIMConversations.add(new BmobIMConversation());
         Log.d("licl","mBmobIMConversations size:"+mBmobIMConversations.size());
 
     }

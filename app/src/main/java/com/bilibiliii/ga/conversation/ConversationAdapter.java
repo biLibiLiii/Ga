@@ -16,6 +16,9 @@ import java.util.Date;
 import java.util.List;
 
 import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMMessage;
+import cn.bmob.newim.listener.MessagesQueryListener;
+import cn.bmob.v3.exception.BmobException;
 
 /**
  * Created by Administrator on 2017/11/14.
@@ -66,9 +69,21 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
     @Override
     public void onBindViewHolder(final ConversationViewHolder holder, int position) {
+        final String[] finalMsg = new String[1];
+        try {
+            mBmobIMConversations.get(position).queryMessages(null, 20, new MessagesQueryListener() {
+                @Override
+                public void done(List<BmobIMMessage> list, BmobException e) {
+                    finalMsg[0] =list.get(list.size()-1).getContent();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         holder.mUserName.setText(mBmobIMConversations.get(position).getConversationTitle());
         holder.mConversationTime.setText(stampToDate(mBmobIMConversations.get(position).getUpdateTime()));
-        holder.mLastConversation.setText(mBmobIMConversations.get(position).getDraft());
+        holder.mLastConversation.setText(finalMsg[0]);
         holder.mUserIcon.setImageResource(R.drawable.icon_test);
 
         if (mOnItemClickListener != null)
