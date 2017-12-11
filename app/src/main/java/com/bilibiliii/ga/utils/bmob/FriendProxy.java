@@ -1,9 +1,7 @@
 package com.bilibiliii.ga.utils.bmob;
 
-import android.content.Context;
-
 import com.bilibiliii.ga.bean.Friend;
-import com.bilibiliii.ga.bean.NewFriendRe;
+import com.bilibiliii.ga.bean.NewFriend;
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.bmob.I.IFriendProxy;
 
@@ -13,9 +11,7 @@ import java.util.Map;
 
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMConversation;
-import cn.bmob.newim.bean.BmobIMExtraMessage;
 import cn.bmob.newim.bean.BmobIMMessage;
-import cn.bmob.newim.bean.BmobIMTextMessage;
 import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.newim.core.BmobIMClient;
 import cn.bmob.newim.listener.MessageSendListener;
@@ -73,7 +69,7 @@ public class FriendProxy implements IFriendProxy {
         userInfo.setName(user.getUsername());
         BmobIMConversation conversationEntrance = BmobIM.getInstance().startPrivateConversation(userInfo, true, null);
         BmobIMConversation messageManager = BmobIMConversation.obtain(BmobIMClient.getInstance(), conversationEntrance);
-        BmobIMTextMessage msg = new BmobIMTextMessage();
+        AddFriendMessage msg = new AddFriendMessage();
         User currentUser = UserProxy.getInstance().getCurrentUser();
         msg.setContent("很高兴认识你，可以加个好友吗?");
         Map<String, Object> map = new HashMap<>();
@@ -90,23 +86,10 @@ public class FriendProxy implements IFriendProxy {
                 }
             }
         });
-//        MessageProxy messageProxy=new MessageProxy();
-//        messageProxy.setMessageManager(messageManager);
-//        messageProxy.sendMessage("很高兴认识你，可以加个好友吗?", new CallBack<BmobIMMessage>() {
-//            @Override
-//            public void onSuccess(BmobIMMessage result) {
-//                callBack.onSuccess(result);
-//            }
-//
-//            @Override
-//            public void onFail(String errorInfo) {
-//                callBack.onFail(errorInfo);
-//            }
-//        });
 
     }
 
-    private void sendAgreeAddFriendMessage(NewFriendRe add, final CallBack<BmobIMMessage> callBack) {
+    private void sendAgreeAddFriendMessage(NewFriend add, final CallBack<BmobIMMessage> callBack) {
         BmobIMUserInfo info = new BmobIMUserInfo();
         info.setUserId(add.getUid());
         info.setName(add.getName());
@@ -135,7 +118,7 @@ public class FriendProxy implements IFriendProxy {
     private void processCustomMessage(BmobIMMessage msg, BmobIMUserInfo info) {
         String type = msg.getMsgType();
         if (type.equals(AddFriendMessage.ADD)) {
-            NewFriendRe friend = AddFriendMessage.convert(msg);
+            NewFriend friend = AddFriendMessage.convert(msg);
         } else if (type.equals(AgreeAddFriendMessage.AGREE)) {
             AgreeAddFriendMessage agree = AgreeAddFriendMessage.convert(msg);
         } else {

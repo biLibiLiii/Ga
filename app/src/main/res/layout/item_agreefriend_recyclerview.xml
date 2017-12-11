@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/selector_background"
+    android:layout_width="match_parent"
+    android:layout_height="90dp">
+
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/user_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/icon_test"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/user_name_agreefriend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:typeface="normal"
+                />
+
+            <TextView
+                android:id="@+id/time_agreefriend"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:typeface="normal"
+                android:textSize="15sp" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingTop="10dp"
+                android:id="@+id/last_conversation_agreefriend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="请求加您为好友"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                android:typeface="normal"/>
+            <Button
+                android:layout_marginLeft="50dp"
+                android:layout_gravity="right"
+                android:id="@+id/agree_btn"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:text="同意"/>
+            <Button
+                android:layout_gravity="right"
+                android:id="@+id/disagree_btn"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:text="拒绝"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

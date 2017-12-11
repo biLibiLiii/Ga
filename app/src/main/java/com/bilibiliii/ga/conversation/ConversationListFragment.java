@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseFragment;
 import com.bilibiliii.ga.bean.Conversation;
 import com.bilibiliii.ga.chat.ChatActivity;
+import com.bilibiliii.ga.connector.AgreeFriendActivity;
+import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.MessageProxy;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,6 +43,8 @@ public class ConversationListFragment extends BaseFragment {
     private OnFragmentInteractionListener mListener;
     private List<BmobIMConversation> mBmobIMConversations;
     private MessageProxy mMessageProxy;
+    private MainActivity mContext;
+    private ImageButton mRightImageButton;
 
 
     public ConversationListFragment() {
@@ -65,13 +70,21 @@ public class ConversationListFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMessageProxy=new MessageProxy();
+        mContext=(MainActivity)getActivity();
+        mRightImageButton=(ImageButton)mContext.findViewById(R.id.titlebar_right_imagebtn);
         mBmobIMConversations=mMessageProxy.queryAllConversation();
         if(mBmobIMConversations==null){
             mBmobIMConversations=new ArrayList();
         }
         EventBus.getDefault().register(this);
         Log.d("licl","mBmobIMConversations size:"+mBmobIMConversations.size());
-
+        mRightImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), AgreeFriendActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

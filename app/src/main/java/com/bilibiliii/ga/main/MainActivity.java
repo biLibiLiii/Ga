@@ -65,6 +65,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         .replace(R.id.recyclerview_framelayout,mConversationListFragment)
                         .commit();
                 resetImageIcon();
+                mRightImageButton.setBackgroundResource(R.drawable.interactive);
+                mRightImageButton.setVisibility(View.VISIBLE);
                 mConverImageButton.setBackgroundResource(R.drawable.interactive_fill);
                 break;
             case R.id.connector_imagebtn:

@@ -1,13 +1,12 @@
 package com.bilibiliii.ga.utils.bmob;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.bilibiliii.ga.bean.NewFriendRe;
+import com.bilibiliii.ga.bean.NewFriend;
 import com.bilibiliii.ga.utils.bmob.I.UpdateCacheListener;
+import com.bilibiliii.ga.utils.db.NewFriendManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,7 +22,12 @@ import cn.bmob.v3.exception.BmobException;
  * @author No.47 create at 2017/11/10.
  */
 public class UserMessageHandler extends BmobIMMessageHandler {
+    Context mContext;
     private  final String TAG = getClass().getSimpleName();
+
+    public UserMessageHandler(Context context) {
+        mContext = context;
+    }
 
     @Override
     public void onMessageReceive(final MessageEvent event) {
@@ -74,7 +78,11 @@ public class UserMessageHandler extends BmobIMMessageHandler {
 //        EventBus.getDefault().post(new RefreshEvent());
         //处理消息
         if (type.equals(AddFriendMessage.ADD)) {//接收到的添加好友的请求
-            NewFriendRe friend = AddFriendMessage.convert(msg);
+            NewFriend friend = AddFriendMessage.convert(msg);
+            long id = NewFriendManager.getInstance(mContext).insertOrUpdateNewFriend(friend);
+            if (id > 0) {
+                Toast.makeText(mContext,"收到好友请求",Toast.LENGTH_SHORT).show();
+            }
             EventBus.getDefault().post(friend);
         } else if (type.equals(AgreeAddFriendMessage.AGREE)) {//接收到的对方同意添加自己为好友,此时需要做的事情：1、添加对方为好友，2、显示通知
 

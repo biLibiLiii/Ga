@@ -36,7 +36,7 @@ public class App extends Application {
         // init bmob im
         if(getApplicationInfo().packageName.equals(getMyProcessName())){
             BmobIM.init(this);
-            BmobIM.registerDefaultMessageHandler(new UserMessageHandler());
+            BmobIM.registerDefaultMessageHandler(new UserMessageHandler(this));
         }
 
         // set global fonts

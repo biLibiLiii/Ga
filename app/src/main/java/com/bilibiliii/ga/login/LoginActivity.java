@@ -39,6 +39,12 @@ public class LoginActivity extends BaseActivity {
     protected void initView() {
 
         mUserProxy=UserProxy.getInstance();
+        mUserProxy.setHandlerCallback(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message message) {
+                return false;
+            }
+        });
         mRoundImageView=(RoundImageView) findViewById(R.id.person_icon);
         mRoundImageView.setImageResource(R.drawable.icon_test);
         mUserNameEditText=(EditText)findViewById(R.id.username_edittext);

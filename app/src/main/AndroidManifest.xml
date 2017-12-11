@@ -21,11 +21,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".main.MainActivity"
-            android:launchMode="singleTop"/>
-
-        <activity android:name=".login.LoginActivity" >
+        <activity
+            android:name=".main.MainActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,6 +58,7 @@
             android:name="Bmob_APP_KEY"
             android:value="0a58691792addebbeefae9f474e3f0d7" />
 
+        <activity android:name=".connector.AgreeFriendActivity"></activity>
     </application>
 
 </manifest>

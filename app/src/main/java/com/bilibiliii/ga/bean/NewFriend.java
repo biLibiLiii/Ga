@@ -3,7 +3,7 @@ package com.bilibiliii.ga.bean;
 /**
  * @author No.47 create at 2017/11/20.
  */
-public class NewFriendRe {
+public class NewFriend implements java.io.Serializable{
 
     private Long id;
 
@@ -13,10 +13,31 @@ public class NewFriendRe {
 
     private String name;
 
+    private String avatar="tmp empty";
+
     private Integer status;
 
     private Long time;
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar  ="tmp empty";
+    }
+    public NewFriend(){
+
+    }
+    public NewFriend(Long id, String uid, String msg, String name, String avatar, Integer status, Long time) {
+        this.id = id;
+        this.uid = uid;
+        this.msg = msg;
+        this.name = name;
+        this.avatar ="tmp empty";
+        this.status = status;
+        this.time = time;
+    }
     public Long getId() {
         return id;
     }

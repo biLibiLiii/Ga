@@ -3,7 +3,7 @@ package com.bilibiliii.ga.utils.bmob;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.bilibiliii.ga.bean.NewFriendRe;
+import com.bilibiliii.ga.bean.NewFriend;
 import com.bilibiliii.ga.utils.Common;
 
 import org.json.JSONObject;
@@ -30,8 +30,8 @@ public class AddFriendMessage extends BmobIMExtraMessage {
         return true;
     }
 
-    public static NewFriendRe convert(BmobIMMessage msg) {
-        NewFriendRe add = new NewFriendRe();
+    public static NewFriend convert(BmobIMMessage msg) {
+        NewFriend add = new NewFriend();
         String content = msg.getContent();
         add.setMsg(content);
         add.setTime(msg.getCreateTime());
