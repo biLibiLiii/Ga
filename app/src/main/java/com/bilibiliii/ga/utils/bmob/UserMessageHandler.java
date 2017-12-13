@@ -5,10 +5,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bilibiliii.ga.bean.NewFriend;
+import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.utils.bmob.I.UpdateCacheListener;
 import com.bilibiliii.ga.utils.db.NewFriendManager;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.logging.Logger;
 
 import cn.bmob.newim.bean.BmobIMMessage;
 import cn.bmob.newim.bean.BmobIMMessageType;
@@ -17,13 +20,14 @@ import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.event.OfflineMessageEvent;
 import cn.bmob.newim.listener.BmobIMMessageHandler;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * @author No.47 create at 2017/11/10.
  */
 public class UserMessageHandler extends BmobIMMessageHandler {
     Context mContext;
-    private  final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
 
     public UserMessageHandler(Context context) {
         mContext = context;
@@ -43,14 +47,14 @@ public class UserMessageHandler extends BmobIMMessageHandler {
 //        Log.d(TAG, event.getEventMap().get(AddFriendMessage.ADD).get(0).getMessage().toString());
     }
 
-    public void executeMessage(final MessageEvent event){
+    public void executeMessage(final MessageEvent event) {
         BmobIMMessage msg = event.getMessage();
-        Log.d("licl",msg.getMsgType()+BmobIMMessageType.getMessageTypeValue(msg.getMsgType())+1);
+        Log.d("licl", msg.getMsgType() + BmobIMMessageType.getMessageTypeValue(msg.getMsgType()) + 1);
         UserProxy.getInstance().updateUserInfo(event, new UpdateCacheListener() {
             @Override
             public void done(BmobException e) {
                 BmobIMMessage msg = event.getMessage();
-                Log.d("licl",msg.getMsgType()+BmobIMMessageType.getMessageTypeValue(msg.getMsgType())+2);
+                Log.d("licl", msg.getMsgType() + BmobIMMessageType.getMessageTypeValue(msg.getMsgType()) + 2);
                 if (BmobIMMessageType.getMessageTypeValue(msg.getMsgType()) == 0) {
                     //自定义消息类型：0
                     EventBus.getDefault().post(event);//处理临时消息
@@ -69,9 +73,10 @@ public class UserMessageHandler extends BmobIMMessageHandler {
         EventBus.getDefault().post(event);
 
     }
+
     private void processCustomMessage(BmobIMMessage msg, BmobIMUserInfo info) {
 
-      Log.d("licl","收到自定义消息");
+        Log.d("licl", "收到自定义消息");
         //消息类型
         String type = msg.getMsgType();
         //发送页面刷新的广播
@@ -81,13 +86,31 @@ public class UserMessageHandler extends BmobIMMessageHandler {
             NewFriend friend = AddFriendMessage.convert(msg);
             long id = NewFriendManager.getInstance(mContext).insertOrUpdateNewFriend(friend);
             if (id > 0) {
-                Toast.makeText(mContext,"收到好友请求",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "收到好友请求", Toast.LENGTH_SHORT).show();
             }
             EventBus.getDefault().post(friend);
         } else if (type.equals(AgreeAddFriendMessage.AGREE)) {//接收到的对方同意添加自己为好友,此时需要做的事情：1、添加对方为好友，2、显示通知
-
+            AgreeAddFriendMessage agree = AgreeAddFriendMessage.convert(msg);
+            addFriend(agree.getFromId());//添加消息的发送方为好友
         } else {
 
         }
+    }
+
+    private void addFriend(String uid) {
+        User user = new User();
+        user.setObjectId(uid);
+
+        new FriendProxy().agreeAddFriend(user, new CallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+
+            }
+        });
     }
 }

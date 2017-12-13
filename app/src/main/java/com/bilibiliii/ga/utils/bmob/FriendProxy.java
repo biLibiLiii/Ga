@@ -89,7 +89,7 @@ public class FriendProxy implements IFriendProxy {
 
     }
 
-    private void sendAgreeAddFriendMessage(NewFriend add, final CallBack<BmobIMMessage> callBack) {
+    public void sendAgreeAddFriendMessage(NewFriend add, final CallBack<BmobIMMessage> callBack) {
         BmobIMUserInfo info = new BmobIMUserInfo();
         info.setUserId(add.getUid());
         info.setName(add.getName());

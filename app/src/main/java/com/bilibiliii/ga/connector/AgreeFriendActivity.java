@@ -13,7 +13,7 @@ import java.util.List;
 public class AgreeFriendActivity extends BaseActivity {
     private RecyclerView mAgreeFriendRecyclerview;
     private List<NewFriend> mNewFriendList;
-    private NewFriendManager mNewFriendManager=NewFriendManager.getInstance(this);
+    private NewFriendManager mNewFriendManager;
     private AgreeFriendAdapter mAgreeFriendAdapter;
     @Override
     protected void setContentView() {
@@ -32,8 +32,9 @@ public class AgreeFriendActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        mNewFriendManager=NewFriendManager.getInstance(this);
         mNewFriendList=mNewFriendManager.getAllNewFriend();
-        mAgreeFriendAdapter=new AgreeFriendAdapter(mNewFriendList);
+        mAgreeFriendAdapter=new AgreeFriendAdapter(mNewFriendList,this);
         mAgreeFriendRecyclerview.setAdapter(mAgreeFriendAdapter);
         mAgreeFriendRecyclerview.setLayoutManager(new LinearLayoutManager(this));
     }

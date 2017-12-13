@@ -1,10 +1,6 @@
 package com.bilibiliii.ga.connector;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,22 +14,22 @@ import android.widget.Toast;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseFragment;
+import com.bilibiliii.ga.bean.Friend;
 import com.bilibiliii.ga.bean.User;
 import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
+import com.bilibiliii.ga.utils.bmob.FriendProxy;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectorFragment extends BaseFragment
-{
+public class ConnectorFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
     private ListView connectorListview;
-    private List<User> mUsers=new ArrayList<>();
+    private List<Friend> mFriends;
     private TextView mUsername;
     private EditText mSearchEditText;
     private ImageButton mSearchImageButton;
@@ -41,6 +37,7 @@ public class ConnectorFragment extends BaseFragment
     private ConnectorAdapter mConnectorAdapter;
     private MainActivity mContext;
     private ImageButton mRightImageButton;
+    private FriendProxy mFriendProxy;
     public ConnectorFragment() {
 
     }
@@ -59,6 +56,7 @@ public class ConnectorFragment extends BaseFragment
         super.onCreate(savedInstanceState);
         mContext=(MainActivity)getActivity();
         mUserProxy=UserProxy.getInstance();
+        mFriendProxy=new FriendProxy();
         mRightImageButton=(ImageButton)mContext.findViewById(R.id.titlebar_right_imagebtn);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -67,10 +65,21 @@ public class ConnectorFragment extends BaseFragment
         getData();
     }
     public void getData(){
-        User.UserBuilder userBuilder=new User.UserBuilder();
-        mUsers.add(userBuilder.setUsername("hawaii").build());
-        mUsers.add(userBuilder.setUsername("guoda").build());
-        mUsers.add(userBuilder.setUsername("aha").build());
+
+        mFriendProxy.queryFriends(new CallBack<List<Friend>>() {
+            @Override
+            public void onSuccess(List<Friend> result) {
+                mFriends =result;
+                mConnectorAdapter=new ConnectorAdapter();
+                mConnectorAdapter.mUsers= mFriends;
+                connectorListview.setAdapter(mConnectorAdapter);
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+
+            }
+        });
 
     }
     @Override
@@ -80,9 +89,7 @@ public class ConnectorFragment extends BaseFragment
         connectorListview=(ListView) view.findViewById(R.id.connector_listview);
         mSearchEditText=(EditText)view.findViewById(R.id.search_name_edittext) ;
         mSearchImageButton=(ImageButton)view.findViewById(R.id.search_connector_imagebutton);
-        mConnectorAdapter=new ConnectorAdapter();
-        mConnectorAdapter.mUsers=mUsers;
-        connectorListview.setAdapter(mConnectorAdapter);
+
         initListener();
         return view;
     }
@@ -103,10 +110,10 @@ public class ConnectorFragment extends BaseFragment
                 mUserProxy.queryUser(mSearchEditText.getText().toString(), new CallBack<List<User>>() {
                     @Override
                     public void onSuccess(List<User> result) {
-                        Log.d("licl","查询用户成功"+result.size());
-                        mConnectorAdapter.mUsers.clear();
-                        mConnectorAdapter.mUsers.addAll(result);
-                        mConnectorAdapter.notifyDataSetChanged();
+//                        Log.d("licl","查询用户成功"+result.size());
+//                        mConnectorAdapter.mUsers.clear();
+//                        mConnectorAdapter.mUsers.addAll(result);
+//                        mConnectorAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -120,7 +127,7 @@ public class ConnectorFragment extends BaseFragment
     }
 
     private class ConnectorAdapter extends BaseAdapter{
-        public List<User> mUsers;
+        public List<Friend> mUsers;
         @Override
         public int getCount() {
             return mUsers.size();
@@ -142,7 +149,7 @@ public class ConnectorFragment extends BaseFragment
                 view=LayoutInflater.from(getContext()).inflate(R.layout.item_connector_listview,viewGroup,false);
             }
             mUsername=(TextView)view.findViewById(R.id.connector_name);
-            mUsername.setText(mUsers.get(i).getUsername());
+            mUsername.setText(mUsers.get(i).getFriendUser().getUsername());
             return view;
         }
     }
