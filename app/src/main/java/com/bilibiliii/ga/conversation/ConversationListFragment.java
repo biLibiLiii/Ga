@@ -1,15 +1,12 @@
 package com.bilibiliii.ga.conversation;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -17,18 +14,16 @@ import android.widget.Toast;
 
 import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseFragment;
-import com.bilibiliii.ga.bean.Conversation;
 import com.bilibiliii.ga.chat.ChatActivity;
 import com.bilibiliii.ga.connector.AgreeFriendActivity;
 import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.MessageProxy;
+import com.bilibiliii.ga.views.DividerItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.bmob.newim.BmobIM;
@@ -99,6 +94,7 @@ public class ConversationListFragment extends BaseFragment {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
         mConverListRecyclerview.setLayoutManager(linearLayoutManager);
         mConverListRecyclerview.setAdapter(mConversationAdapter);
+        mConverListRecyclerview.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
         mConversationAdapter.setOnItemClickListener(new ConversationAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

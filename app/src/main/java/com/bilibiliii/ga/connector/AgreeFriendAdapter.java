@@ -2,6 +2,7 @@ package com.bilibiliii.ga.connector;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,7 @@ public class AgreeFriendAdapter extends RecyclerView.Adapter<AgreeFriendAdapter.
     @Override
     public void onBindViewHolder(AgreeFriendViewHolder holder, final int position) {
         holder.mNameTv.setText(mNewFriendList.get(position).getName());
-        holder.mTime.setText(mNewFriendList.get(position).getTime().toString());
+        holder.mTime.setText(DateUtils.getRelativeTimeSpanString(mNewFriendList.get(position).getTime()));
         holder.mAgreeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

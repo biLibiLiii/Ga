@@ -34,6 +34,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         mTitle=(TextView) findViewById(R.id.titlebar_title);
         mBackImageButton=(ImageButton)findViewById(R.id.titlebar_left_imagebtn);
         mRightImageButton=(ImageButton)findViewById(R.id.titlebar_right_imagebtn);
+        mRightImageButton.setVisibility(View.VISIBLE);
+        mRightImageButton.setBackgroundResource(R.drawable.comments);
         mBackImageButton.setVisibility(View.VISIBLE);
         mTitle.setText(TITLE);
         mBackImageButton.setBackgroundResource(R.drawable.category);
@@ -65,7 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         .replace(R.id.recyclerview_framelayout,mConversationListFragment)
                         .commit();
                 resetImageIcon();
-                mRightImageButton.setBackgroundResource(R.drawable.interactive);
+                mRightImageButton.setBackgroundResource(R.drawable.comments);
                 mRightImageButton.setVisibility(View.VISIBLE);
                 mConverImageButton.setBackgroundResource(R.drawable.interactive_fill);
                 break;

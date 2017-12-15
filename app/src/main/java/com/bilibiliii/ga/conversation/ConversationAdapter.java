@@ -1,6 +1,7 @@
 package com.bilibiliii.ga.conversation;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     }
     public void addConversation(BmobIMConversation conversation){
         for(BmobIMConversation tmpConcersation:mBmobIMConversations){
-//            Log.d("licl",tmpConcersation.getConversationTitle()+" "+conversation.getConversationTitle());
             if(tmpConcersation.getConversationTitle().equals(conversation.getConversationTitle())){
                 return;
             }
@@ -82,7 +82,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         }
 
         holder.mUserName.setText(mBmobIMConversations.get(position).getConversationTitle());
-        holder.mConversationTime.setText(stampToDate(mBmobIMConversations.get(position).getUpdateTime()));
+        holder.mConversationTime.setText(DateUtils.getRelativeTimeSpanString(mBmobIMConversations.get(position).getUpdateTime()));
         holder.mLastConversation.setText(finalMsg[0]);
         holder.mUserIcon.setImageResource(R.drawable.icon_test);
 
@@ -117,13 +117,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     public int getItemCount() {
         return mBmobIMConversations.size();
     }
-    public String stampToDate(long timeStamp){
-        String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date(timeStamp);
-        res = simpleDateFormat.format(date);
-        return res;
-    }
+
     class ConversationViewHolder extends RecyclerView.ViewHolder{
         ImageView mUserIcon;
         TextView mUserName;

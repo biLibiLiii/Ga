@@ -1,10 +1,12 @@
 package com.bilibiliii.ga.connector;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,12 +18,17 @@ import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseFragment;
 import com.bilibiliii.ga.bean.Friend;
 import com.bilibiliii.ga.bean.User;
+import com.bilibiliii.ga.chat.ChatActivity;
 import com.bilibiliii.ga.main.MainActivity;
 import com.bilibiliii.ga.utils.bmob.CallBack;
 import com.bilibiliii.ga.utils.bmob.FriendProxy;
 import com.bilibiliii.ga.utils.bmob.UserProxy;
 
 import java.util.List;
+
+import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMUserInfo;
 
 public class ConnectorFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
@@ -122,6 +129,19 @@ public class ConnectorFragment extends BaseFragment {
                         Toast.makeText(getContext(),"未查询到指定用户或网络连接不可用",Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+        connectorListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(getContext(), ChatActivity.class);
+                User friendUser =mFriends.get(i).getFriendUser();
+                BmobIMUserInfo userInfo=new BmobIMUserInfo();
+                userInfo.setUserId(friendUser.getObjectId());
+                userInfo.setName(friendUser.getUsername());
+                BmobIMConversation bmobIMConversation= BmobIM.getInstance().startPrivateConversation(userInfo, null);
+                intent.putExtra("conversation",bmobIMConversation);
+                startActivity(intent);
             }
         });
     }
