@@ -57,8 +57,12 @@
         <meta-data
             android:name="Bmob_APP_KEY"
             android:value="0a58691792addebbeefae9f474e3f0d7" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="OM9SreMuHt1vMg6EejDO4CfDZmexw3cR" />
 
-        <activity android:name=".connector.AgreeFriendActivity"></activity>
+        <activity android:name=".connector.AgreeFriendActivity" />
+        <activity android:name=".map.MapActivity"></activity>
     </application>
 
 </manifest>

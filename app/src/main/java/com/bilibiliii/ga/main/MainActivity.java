@@ -1,5 +1,6 @@
 package com.bilibiliii.ga.main;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import com.bilibiliii.ga.R;
 import com.bilibiliii.ga.base.BaseActivity;
 import com.bilibiliii.ga.connector.ConnectorFragment;
 import com.bilibiliii.ga.conversation.ConversationListFragment;
+import com.bilibiliii.ga.map.MapActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -70,9 +72,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 int itemId=item.getItemId();
                 switch (itemId){
                     case R.id.weather:
+
                         Toast.makeText(MainActivity.this,"click weather",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.location:
+                        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                        startActivity(intent);
                         Toast.makeText(MainActivity.this,"click location",Toast.LENGTH_SHORT).show();
                         break;
                 }
