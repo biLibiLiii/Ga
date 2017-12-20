@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
@@ -61,20 +62,6 @@ public class MapActivity extends BaseActivity {
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap=mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);
-        mBaiduMap.setMyLocationConfiguration(new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING,true,mCurrentMarker));
-//        MyLocationData locData = new MyLocationData.Builder()
-//                .accuracy(location.getRadius())
-//                // 此处设置开发者获取到的方向信息，顺时针0-360
-//                .direction(100).latitude(location.getLatitude())
-//                .longitude(location.getLongitude()).build();
-
-// 设置定位数据
-//        mBaiduMap.setMyLocationData(locData);
-
-// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
-
-// 当不需要定位图层时关闭定位图层,
-        mBaiduMap.setMyLocationEnabled(false);
     }
     void checkPermission(){
         List<String> permissinList=new ArrayList<>();
@@ -98,17 +85,23 @@ public class MapActivity extends BaseActivity {
         }
     }
     private void requestLocation(){
+
         mLocationClient.start();
     }
 
+    private void initLocation(){
+        LocationClientOption option=new LocationClientOption();
+        option.setScanSpan(5000);
+        mLocationClient.setLocOption(option);
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
             case 1:
                 if(grantResults.length>0){
-                    for(int result:grantResults){
-                        if(result!=PackageManager.PERMISSION_GRANTED){
-                            Toast.makeText(MapActivity.this,"permission deny",Toast.LENGTH_SHORT).show();
+                    for(int i=0;i<grantResults.length;i++){
+                        if(grantResults[i]!=PackageManager.PERMISSION_GRANTED){
+                            Toast.makeText(MapActivity.this,"permission deny"+permissions[i],Toast.LENGTH_SHORT).show();
                             finish();
                             return;
                         }
@@ -130,6 +123,13 @@ public class MapActivity extends BaseActivity {
                     Toast.makeText(MapActivity.this,"get location info",Toast.LENGTH_SHORT).show();
                     navigateTo(bdLocation);
                 }
+            mBaiduMap.setMyLocationEnabled(true);
+            mBaiduMap.setMyLocationConfiguration(new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING,true,mCurrentMarker));
+            MyLocationData locData = new MyLocationData.Builder()
+                    .accuracy(bdLocation.getRadius())
+                    .direction(100).latitude(bdLocation.getLatitude())
+                    .longitude(bdLocation.getLongitude()).build();
+             mBaiduMap.setMyLocationData(locData);
         }
     }
 
@@ -147,6 +147,8 @@ public class MapActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
+        mLocationClient.stop();
+        mBaiduMap.setMyLocationEnabled(false);
     }
 
     @Override
