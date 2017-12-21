@@ -16,6 +16,7 @@ import com.bilibiliii.ga.base.BaseActivity;
 import com.bilibiliii.ga.connector.ConnectorFragment;
 import com.bilibiliii.ga.conversation.ConversationListFragment;
 import com.bilibiliii.ga.map.MapActivity;
+import com.bilibiliii.ga.weather.WeatherActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -72,13 +73,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 int itemId=item.getItemId();
                 switch (itemId){
                     case R.id.weather:
+                        Intent intent1 = new Intent(MainActivity.this, WeatherActivity.class);
+                        startActivity(intent1);
 
-                        Toast.makeText(MainActivity.this,"click weather",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.location:
-                        Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(MainActivity.this,"click location",Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(MainActivity.this, MapActivity.class);
+                        startActivity(intent2);
+
                         break;
                 }
                 return true;

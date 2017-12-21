@@ -13,11 +13,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- 这个权限用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:name=".App"
@@ -40,6 +40,7 @@
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".murmur.EditMurmurActivity" />
         <activity android:name=".login.RegisterActivity" />
+        <activity android:name=".weather.WeatherActivity" />
 
         <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
             <intent-filter>
@@ -67,7 +68,7 @@
             android:value="OM9SreMuHt1vMg6EejDO4CfDZmexw3cR" />
 
         <activity android:name=".connector.AgreeFriendActivity" />
-        <activity android:name=".map.MapActivity"></activity>
+        <activity android:name=".map.MapActivity" />
     </application>
 
 </manifest>
